@@ -1,0 +1,482 @@
+/* =============================================
+   TITAN — Design System
+   Gaming & Esports Platform
+   RTL / Persian
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+/* =============================================
+   CSS Custom Properties (Design Tokens)
+   ============================================= */
+:root {
+  /* — Background — */
+  --titan-bg-deep: #05070D;
+  --titan-bg-primary: #080B14;
+  --titan-bg-secondary: #0B1020;
+
+  /* — Surface — */
+  --titan-surface-1: #101522;
+  --titan-surface-2: #121827;
+  --titan-surface-3: #171D2C;
+  --titan-surface-4: #1E2538;
+
+  /* — Primary Accent: Electric Cyan — */
+  --titan-accent-blue: #00D4FF;
+  --titan-accent-blue-dim: #0098B8;
+  --titan-accent-blue-bright: #40E0FF;
+
+  /* — Secondary Accent: Violet — */
+  --titan-accent-violet: #8B5CF6;
+  --titan-accent-violet-dim: #6D3FD0;
+  --titan-accent-violet-bright: #A78BFA;
+
+  /* — Optional Highlight: Magenta — */
+  --titan-accent-magenta: #EC4899;
+  --titan-accent-magenta-dim: #BE185D;
+
+  /* — Status Colors — */
+  --titan-status-live: #EF4444;
+  --titan-status-upcoming: #3B82F6;
+  --titan-status-completed: #6B7280;
+  --titan-status-free: #10B981;
+  --titan-status-paid: #F59E0B;
+  --titan-status-success: #22C55E;
+  --titan-status-warning: #F59E0B;
+  --titan-status-error: #EF4444;
+
+  /* — Text — */
+  --titan-text-primary: #F5F7FF;
+  --titan-text-secondary: #8B93A7;
+  --titan-text-tertiary: #5A6178;
+  --titan-text-accent: var(--titan-accent-blue);
+
+  /* — Borders — */
+  --titan-border: rgba(255, 255, 255, 0.06);
+  --titan-border-hover: rgba(255, 255, 255, 0.12);
+  --titan-border-accent: rgba(0, 212, 255, 0.3);
+
+  /* — Glow — */
+  --titan-glow-blue: rgba(0, 212, 255, 0.15);
+  --titan-glow-blue-strong: rgba(0, 212, 255, 0.3);
+  --titan-glow-violet: rgba(139, 92, 246, 0.15);
+  --titan-glow-violet-strong: rgba(139, 92, 246, 0.3);
+
+  /* — Gradients — */
+  --titan-gradient-primary: linear-gradient(135deg, var(--titan-accent-blue), var(--titan-accent-violet));
+  --titan-gradient-surface: linear-gradient(180deg, var(--titan-surface-1), var(--titan-bg-primary));
+  --titan-gradient-hero: linear-gradient(180deg, transparent 0%, var(--titan-bg-primary) 100%);
+  --titan-gradient-card: linear-gradient(180deg, rgba(16, 21, 34, 0.8), rgba(8, 11, 20, 0.95));
+
+  /* — Spacing — */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* — Typography — */
+  --font-persian: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+  --font-en: 'Outfit', var(--font-persian);
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  --text-5xl: 3rem;      /* 48px */
+  --text-6xl: 3.75rem;   /* 60px */
+  --text-7xl: 4.5rem;    /* 72px */
+  --text-8xl: 6rem;      /* 96px */
+
+  /* — Border Radius — */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* — Transitions — */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* — Shadows — */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-glow-blue: 0 0 20px var(--titan-glow-blue), 0 0 60px var(--titan-glow-blue);
+  --shadow-glow-violet: 0 0 20px var(--titan-glow-violet), 0 0 60px var(--titan-glow-violet);
+
+  /* — Blur — */
+  --blur-sm: 8px;
+  --blur-md: 16px;
+  --blur-lg: 32px;
+  --blur-xl: 64px;
+
+  /* — Z-Index — */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal-backdrop: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* — Layout — */
+  --container-max: 1320px;
+  --navbar-height: 80px;
+  --navbar-height-compact: 64px;
+}
+
+/* =============================================
+   Global Reset & Base
+   ============================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-persian);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--titan-text-primary);
+  background-color: var(--titan-bg-deep);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(0, 212, 255, 0.03), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.04), transparent 25%),
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+  background-attachment: fixed, fixed, fixed, fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* English text utility */
+.en-text {
+  font-family: var(--font-en);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* =============================================
+   Typography
+   ============================================= */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--titan-text-primary);
+}
+
+h1 { font-size: var(--text-5xl); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+h6 { font-size: var(--text-base); }
+
+p {
+  color: var(--titan-text-secondary);
+  line-height: 1.8;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--titan-accent-blue);
+}
+
+strong, b {
+  font-weight: 700;
+}
+
+small {
+  font-size: var(--text-sm);
+}
+
+/* =============================================
+   Selection
+   ============================================= */
+::selection {
+  background: rgba(0, 212, 255, 0.2);
+  color: var(--titan-text-primary);
+}
+
+/* =============================================
+   Scrollbar
+   ============================================= */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--titan-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--titan-surface-3);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--titan-surface-4);
+}
+
+/* =============================================
+   Container
+   ============================================= */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding-inline: var(--space-4);
+  }
+}
+
+/* =============================================
+   Utility Classes
+   ============================================= */
+
+/* Text */
+.text-accent { color: var(--titan-accent-blue); }
+.text-violet { color: var(--titan-accent-violet); }
+.text-secondary { color: var(--titan-text-secondary); }
+.text-gradient {
+  background: var(--titan-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-center { text-align: center; }
+
+/* Metadata text style */
+.meta-text {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--titan-text-secondary);
+}
+
+/* Flex */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+/* Grid */
+.grid { display: grid; }
+
+/* =============================================
+   Focus States (Accessibility)
+   ============================================= */
+:focus-visible {
+  outline: 2px solid var(--titan-accent-blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* =============================================
+   Reduced Motion
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =============================================
+   Responsive Typography
+   ============================================= */
+@media (max-width: 1023px) {
+  h1 { font-size: var(--text-4xl); }
+  h2 { font-size: var(--text-3xl); }
+}
+
+@media (max-width: 767px) {
+  h1 { font-size: var(--text-3xl); }
+  h2 { font-size: var(--text-2xl); }
+  h3 { font-size: var(--text-xl); }
+}
+
+/* =============================================
+   Section Spacing
+   ============================================= */
+.section {
+  padding-block: var(--space-24);
+  position: relative;
+}
+
+@media (max-width: 1023px) {
+  .section {
+    padding-block: var(--space-16);
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: var(--space-12);
+  }
+}
+
+/* =============================================
+   Glassmorphism Surface
+   ============================================= */
+.glass {
+  background: rgba(16, 21, 34, 0.6);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+  border: 1px solid var(--titan-border);
+}
+
+.glass-strong {
+  background: rgba(16, 21, 34, 0.85);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
+  border: 1px solid var(--titan-border);
+}
+
+/* =============================================
+   Card Base
+   ============================================= */
+.card {
+  background: var(--titan-surface-1);
+  border: 1px solid var(--titan-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-base), 
+              border-color var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--titan-border-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+/* =============================================
+   Animations
+   ============================================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 5px var(--titan-glow-blue), 0 0 20px var(--titan-glow-blue); 
+  }
+  50% { 
+    box-shadow: 0 0 10px var(--titan-glow-blue-strong), 0 0 40px var(--titan-glow-blue-strong); 
+  }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* =============================================
+   Skeleton Loading
+   ============================================= */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--titan-surface-2) 25%,
+    var(--titan-surface-3) 50%,
+    var(--titan-surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+/* =============================================
+   Number Formatting
+   ============================================= */
+.number-fa {
+  font-variant-numeric: tabular-nums;
+}

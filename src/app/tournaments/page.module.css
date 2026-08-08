@@ -1,0 +1,114 @@
+.main {
+  padding-top: var(--navbar-height);
+  min-height: 100vh;
+}
+
+.hero {
+  position: relative;
+  padding-block: var(--space-16) var(--space-8);
+  border-bottom: 1px solid var(--titan-border);
+  overflow: hidden;
+}
+
+.content {
+  padding-block: var(--space-12);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.tabsRow {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.tab {
+  padding: var(--space-2) var(--space-5);
+  border: 1px solid var(--titan-border);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--titan-text-secondary);
+  font-family: var(--font-persian);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tab:hover {
+  border-color: var(--titan-border-hover);
+  color: var(--titan-text-primary);
+}
+
+.tabActive {
+  background: var(--titan-gradient-primary);
+  border-color: transparent;
+  color: white;
+  font-weight: 600;
+}
+
+.filters {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.select {
+  padding: var(--space-2) var(--space-4);
+  background: var(--titan-surface-1);
+  border: 1px solid var(--titan-border);
+  border-radius: var(--radius-md);
+  color: var(--titan-text-primary);
+  font-family: var(--font-persian);
+  font-size: var(--text-sm);
+  outline: none;
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.emptyState {
+  padding: var(--space-16);
+  text-align: center;
+  color: var(--titan-text-secondary);
+  background: var(--titan-surface-1);
+  border: 1px dashed var(--titan-border);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .tabsRow {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: var(--space-2);
+  }
+  
+  .tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
