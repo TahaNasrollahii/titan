@@ -21,7 +21,7 @@ import styles from './page.module.css';
 
 type TournamentTab = 'all' | 'live' | 'upcoming' | 'completed';
 
-const staggerContainer = {
+const staggerContainer: any = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -31,7 +31,7 @@ const staggerContainer = {
   }
 };
 
-const fadeUpItem = {
+const fadeUpItem: any = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } }
 };

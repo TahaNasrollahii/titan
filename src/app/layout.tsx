@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import GalaxyBackground from "@/components/effects/GalaxyBackground";
+import BackgroundManager from "@/components/effects/BackgroundManager";
 import CustomCursor from "@/components/effects/CustomCursor";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="fa" dir="rtl" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <CustomCursor />
-        <GalaxyBackground />
+        <BackgroundManager />
         {children}
       </body>
     </html>
