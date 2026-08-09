@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars, Sphere, Float } from '@react-three/drei';
+import { Stars, Sphere, Float, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 
 // ---------------------------
@@ -56,55 +56,80 @@ const PLANETS = [
 // ---------------------------
 function Planet({ config }: { config: typeof PLANETS[0] }) {
   const meshRef = useRef<THREE.Mesh>(null);
-  const ringRef = useRef<THREE.Mesh>(null);
+  const wireframeRef = useRef<THREE.Mesh>(null);
+  const ringRef = useRef<THREE.Group>(null);
 
   useFrame((state, delta) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += delta * 0.1;
+      meshRef.current.rotation.x += delta * 0.05;
+    }
+    if (wireframeRef.current) {
+      wireframeRef.current.rotation.y -= delta * 0.15;
+      wireframeRef.current.rotation.x += delta * 0.05;
     }
     if (ringRef.current) {
-      ringRef.current.rotation.z -= delta * 0.05;
-      ringRef.current.rotation.x = Math.PI / 2.5; // Tilt ring
+      ringRef.current.rotation.z -= delta * 0.1;
+      ringRef.current.rotation.x = Math.PI / 2.2; 
     }
   });
 
   return (
     <group position={[config.xOffset, config.yOffset, config.z]}>
       <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+        {/* Core Solid Planet */}
         <Sphere ref={meshRef} args={[config.size, 64, 64]}>
-          <meshStandardMaterial 
-            color={config.color} 
+          <meshPhysicalMaterial 
+            color="#05070D" 
             emissive={config.emissive}
-            emissiveIntensity={0.5}
-            roughness={0.4}
-            metalness={0.8}
-            wireframe={false}
+            emissiveIntensity={0.2}
+            roughness={0.1}
+            metalness={0.9}
+            clearcoat={1.0}
+            clearcoatRoughness={0.1}
           />
         </Sphere>
 
-        {/* Atmosphere glow */}
-        <Sphere args={[config.size * 1.1, 32, 32]}>
+        {/* Holographic Wireframe Layer */}
+        <Sphere ref={wireframeRef} args={[config.size * 1.02, 32, 32]}>
           <meshBasicMaterial 
             color={config.color} 
-            transparent 
-            opacity={0.15} 
-            side={THREE.BackSide} 
+            wireframe={true}
+            transparent={true}
+            opacity={0.15}
+            blending={THREE.AdditiveBlending}
           />
         </Sphere>
 
-        {/* Planet Light */}
-        <pointLight color={config.color} intensity={500} distance={50} decay={2} />
+        {/* Energy Particles / Atmosphere */}
+        <Sparkles 
+          count={200} 
+          scale={config.size * 3} 
+          size={4} 
+          speed={0.4} 
+          color={config.color} 
+          opacity={0.8}
+        />
 
-        {/* Optional Ring */}
+        {/* Planet Light */}
+        <pointLight color={config.color} intensity={800} distance={40} decay={2} />
+
+        {/* High-Tech Rings */}
         {config.hasRing && (
-          <mesh ref={ringRef}>
-            <torusGeometry args={[config.size * 1.8, 0.1, 16, 100]} />
-            <meshStandardMaterial 
-              color={config.color} 
-              emissive={config.emissive} 
-              emissiveIntensity={2} 
-            />
-          </mesh>
+          <group ref={ringRef}>
+            <mesh>
+              <ringGeometry args={[config.size * 1.4, config.size * 1.45, 64]} />
+              <meshBasicMaterial color={config.color} transparent opacity={0.8} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} />
+            </mesh>
+            <mesh>
+              <ringGeometry args={[config.size * 1.5, config.size * 1.7, 64]} />
+              <meshBasicMaterial color={config.color} transparent opacity={0.2} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} />
+            </mesh>
+            <mesh>
+              <ringGeometry args={[config.size * 1.75, config.size * 1.78, 64]} />
+              <meshBasicMaterial color={config.color} transparent opacity={0.5} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} />
+            </mesh>
+          </group>
         )}
       </Float>
     </group>
@@ -196,7 +221,9 @@ export default function SolarSystemJourney() {
       }}
     >
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-        <ambientLight intensity={0.2} />
+        <ambientLight intensity={0.1} />
+        <directionalLight position={[20, 20, 10]} intensity={2.5} color="#ffffff" />
+        <directionalLight position={[-20, -20, -10]} intensity={0.5} color="#8b5cf6" />
         
         {PLANETS.map((planet) => (
           <Planet key={planet.id} config={planet} />
