@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import GalaxyBackground from "@/components/effects/GalaxyBackground";
+import CustomCursor from "@/components/effects/CustomCursor";
 
 export const metadata: Metadata = {
   title: "TITAN — پلتفرم گیمینگ و اسپورت",
@@ -13,8 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl">
-      <body>
+    <html lang="fa" dir="rtl" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <CustomCursor />
+        <GalaxyBackground />
         {children}
       </body>
     </html>

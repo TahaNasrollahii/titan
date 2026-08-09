@@ -168,17 +168,11 @@ body {
   line-height: 1.7;
   color: var(--titan-text-primary);
   background-color: var(--titan-bg-deep);
-  background-image: 
-    radial-gradient(circle at 15% 50%, rgba(0, 212, 255, 0.03), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.04), transparent 25%),
-    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
-  background-attachment: fixed, fixed, fixed, fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   min-height: 100vh;
+  cursor: none;
 }
 
 /* English text utility */
@@ -213,10 +207,15 @@ a {
   color: inherit;
   text-decoration: none;
   transition: color var(--transition-fast);
+  cursor: none;
 }
 
 a:hover {
   color: var(--titan-accent-blue);
+}
+
+button {
+  cursor: none;
 }
 
 strong, b {
@@ -479,4 +478,39 @@ small {
    ============================================= */
 .number-fa {
   font-variant-numeric: tabular-nums;
+}
+
+/* =============================================
+   Custom Cursor
+   ============================================= */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--titan-accent-blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px var(--titan-glow-blue);
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--titan-accent-blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  box-shadow: inset 0 0 10px rgba(0, 212, 255, 0.2), 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+@media (max-width: 1023px) {
+  body, a, button {
+    cursor: auto; /* Revert on touch devices */
+  }
 }

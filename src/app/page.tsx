@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import StarField from '@/components/effects/StarField';
 import GradientOrb from '@/components/effects/GradientOrb';
+import PremiumHeroBanner from '@/components/effects/PremiumHeroBanner';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Button from '@/components/ui/Button';
 import TournamentCard from '@/components/cards/TournamentCard';
@@ -57,71 +58,7 @@ export default function HomePage() {
     <>
       <Navbar />
 
-      {/* ==================== HERO ==================== */}
-      <section className={styles.hero}>
-        <div className={styles.heroBackground}>
-          <StarField starCount={200} />
-          <GradientOrb color="blue" size={600} top="-10%" left="-15%" opacity={0.2} />
-          <GradientOrb color="violet" size={500} top="20%" right="-20%" opacity={0.15} />
-          <GradientOrb color="magenta" size={300} bottom="10%" left="30%" opacity={0.1} />
-          <div className={styles.heroGradient} />
-        </div>
-
-        {/* HUD Elements */}
-        <div className={`${styles.hudElement} ${styles.hudTopRight}`}>
-          <span>SYS://TITAN.V2.4</span>
-          <span>COORD: 35.6892°N</span>
-          <span>STATUS: ONLINE</span>
-        </div>
-        <div className={`${styles.hudElement} ${styles.hudBottomLeft}`}>
-          <span>SEASON 04 — ACTIVE</span>
-          <span>PLAYERS ONLINE: 12,847</span>
-          <span>NEXT EVENT: 02:14:33</span>
-        </div>
-
-        <div className={`container ${styles.heroContent}`}>
-          <div className={styles.heroInner}>
-            <div className={styles.heroEyebrow}>
-              <span className={styles.heroEyebrowDot} />
-              مرز بعدی گیمینگ
-            </div>
-
-            <h1 className={styles.heroHeading}>
-              وارد{' '}
-              <span className={styles.heroHeadingAccent}>آرنا</span>{' '}
-              شو
-            </h1>
-
-            <p className={styles.heroSubtitle}>
-              محصولات دیجیتال گیمینگ را کشف کنید، در تورنمنت‌ها رقابت کنید و در رتبه‌بندی تایتان صعود کنید.
-            </p>
-
-            <div className={styles.heroCTAs}>
-              <Button size="lg" variant="primary" glow href="/tournaments" icon={<Swords size={20} />}>
-                کاوش مسابقات
-              </Button>
-              <Button size="lg" variant="outline" href="/store" icon={<ShoppingBag size={20} />}>
-                فروشگاه
-              </Button>
-            </div>
-
-            <div className={styles.heroStats}>
-              <div className={styles.heroStat}>
-                <span className={styles.heroStatValue}>25K+</span>
-                <span className={styles.heroStatLabel}>بازیکن فعال</span>
-              </div>
-              <div className={styles.heroStat}>
-                <span className={styles.heroStatValue}>150+</span>
-                <span className={styles.heroStatLabel}>تورنمنت</span>
-              </div>
-              <div className={styles.heroStat}>
-                <span className={styles.heroStatValue}>$500K</span>
-                <span className={styles.heroStatLabel}>جوایز توزیع‌شده</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PremiumHeroBanner />
 
       {/* ==================== LIVE BATTLES ==================== */}
       <motion.section 
