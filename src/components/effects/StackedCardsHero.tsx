@@ -13,16 +13,16 @@ const initialCards = [
     bgColor: 'linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%)', // Blue
     baseColor: '#0ea5e9',
     textColor: '#ffffff',
-    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/FortniteLogo.svg/512px-FortniteLogo.svg.png'
+    logoUrl: '/logos/fortnite.svg'
   },
   {
     id: 'apex',
     title: 'ایپکس لجندز',
     subtitle: 'Apex Player',
-    bgColor: 'linear-gradient(135deg, #e5e7eb 0%, #ffffff 100%)', // White
-    baseColor: '#d1d5db',
-    textColor: '#dc2626', // Red text
-    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Apex_legends_logo.svg/512px-Apex_legends_logo.svg.png'
+    bgColor: 'linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%)', // White/Light
+    baseColor: '#e5e7eb',
+    textColor: '#111827', // Black text
+    logoUrl: '/logos/apex.svg'
   },
   {
     id: 'valorant',
@@ -31,7 +31,7 @@ const initialCards = [
     bgColor: 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)', // Red
     baseColor: '#b91c1c',
     textColor: '#ffffff',
-    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Valorant_logo_-_white_color_version.svg/512px-Valorant_logo_-_white_color_version.svg.png'
+    logoUrl: '/logos/valorant.svg'
   },
   {
     id: 'cod',
@@ -40,7 +40,7 @@ const initialCards = [
     bgColor: 'linear-gradient(135deg, #27272a 0%, #18181b 100%)', // Dark Gray
     baseColor: '#18181b',
     textColor: '#ffffff',
-    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Call_of_Duty_Logo.svg/512px-Call_of_Duty_Logo.svg.png'
+    logoUrl: '/logos/cod.svg'
   }
 ];
 
@@ -63,8 +63,7 @@ export default function StackedCardsHero() {
       return newCards;
     });
     // Prevent clicking too fast
-    setTimeout(() => setIsAnimating(600), 600);
-    setIsAnimating(false);
+    setTimeout(() => setIsAnimating(false), 600);
   };
 
   return (
