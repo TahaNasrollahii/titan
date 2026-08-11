@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, MousePointerClick, Trophy, Crosshair, Target, Gamepad2 } from 'lucide-react';
+import { ArrowLeft, MousePointerClick, Trophy, Crosshair, Target, Gamepad2, Zap } from 'lucide-react';
 import styles from './StackedCardsHero.module.css';
 
 const initialCards = [
@@ -163,11 +163,10 @@ export default function StackedCardsHero() {
                       className={styles.cardFront}
                       style={{ background: card.bgColor, color: card.textColor }}
                     >
-                      {/* Card Chip Icon */}
-                      <div className={styles.chip}>
-                        <div className={styles.chipLine}></div>
-                        <div className={styles.chipLine}></div>
-                        <div className={styles.chipLine}></div>
+                      {/* Gaming Badge instead of chip */}
+                      <div className={styles.gamingBadge}>
+                        <Zap size={14} className={styles.badgeIcon} />
+                        <span>TITAN</span>
                       </div>
                       
                       {/* Card Content */}
