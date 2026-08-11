@@ -70,15 +70,15 @@ export default function StackedCardsHero() {
     <section className={styles.heroSection}>
       <div className="container">
         <div className={styles.contentWrapper}>
-          
+
           {/* Right Side: Text Content (RTL) */}
           <div className={styles.textContent}>
             <h1 className={styles.mainTitle}>
-              خرید <span className={styles.lightText}>آیتم‌های بازی</span> با <br/>
-              کارت‌های <span className={styles.lightText}>اختصاصی</span> <br/>
+              خرید <span className={styles.lightText}>آیتم‌های بازی</span> با <br />
+              کارت‌های <span className={styles.lightText}>اختصاصی</span> <br />
               تایتان <ArrowLeft className={styles.arrowIcon} size={48} />
             </h1>
-            
+
             <p className={styles.description}>
               طراحی اختصاصی کارت‌های گیمینگ خود را با تایتان در دست بگیرید - فقط کافیست بازی مورد علاقه خود را انتخاب کنید و وارد دنیای رقابت شوید.
             </p>
@@ -96,17 +96,13 @@ export default function StackedCardsHero() {
                 <span className={styles.featureIcon}>⚡</span>
                 <span>تحویل آنی</span>
               </div>
-              <div className={styles.featureItem}>
-                <span className={styles.featureIcon}>💳</span>
-                <span>تنوع پرداخت</span>
-              </div>
             </div>
           </div>
 
           {/* Left Side: Stacked Cards */}
           <div className={styles.cardsSide}>
             {/* User Hint */}
-            <motion.div 
+            <motion.div
               className={styles.clickHint}
               animate={{ y: [0, -8, 0], opacity: [0.6, 1, 0.6] }}
               transition={{ repeat: Infinity, duration: 2 }}
@@ -116,15 +112,15 @@ export default function StackedCardsHero() {
             </motion.div>
 
             {/* Floating Container */}
-            <motion.div 
-              className={styles.cardsContainer} 
+            <motion.div
+              className={styles.cardsContainer}
               onClick={moveToEnd}
               animate={{ y: [-10, 10, -10] }}
               transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
             >
               {cards.map((card, index) => {
                 const isFront = index === 0;
-                
+
                 return (
                   <motion.div
                     key={card.id}
@@ -151,19 +147,19 @@ export default function StackedCardsHero() {
                   >
                     {/* 3D Thickness Layers */}
                     {[...Array(6)].map((_, i) => (
-                      <div 
-                        key={i} 
-                        className={styles.volumeLayer} 
-                        style={{ 
+                      <div
+                        key={i}
+                        className={styles.volumeLayer}
+                        style={{
                           transform: `translateZ(${-i}px)`,
                           backgroundColor: card.baseColor,
                           opacity: 1
-                        }} 
+                        }}
                       />
                     ))}
 
                     {/* Front Face Content */}
-                    <div 
+                    <div
                       className={styles.cardFront}
                       style={{ background: card.bgColor, color: card.textColor }}
                     >
@@ -176,11 +172,11 @@ export default function StackedCardsHero() {
                         </div>
                         <Wifi className={styles.contactlessIcon} size={28} />
                       </div>
-                      
+
                       <div className={styles.logoContainer}>
-                        <img 
-                          src={card.logoUrl} 
-                          alt={`${card.title} logo`} 
+                        <img
+                          src={card.logoUrl}
+                          alt={`${card.title} logo`}
                           className={styles.gameLogo}
                           onError={(e) => {
                             // fallback if image fails to load
@@ -188,7 +184,7 @@ export default function StackedCardsHero() {
                           }}
                         />
                       </div>
-                      
+
                       {/* Card Content Footer */}
                       <div className={styles.cardContent}>
                         <div>
