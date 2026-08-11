@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, MousePointerClick } from 'lucide-react';
+import { ArrowLeft, MousePointerClick, Trophy, Crosshair, Target, Gamepad2 } from 'lucide-react';
 import styles from './StackedCardsHero.module.css';
 
 const initialCards = [
@@ -10,39 +10,48 @@ const initialCards = [
     id: 'tournaments',
     title: 'لیگ قهرمانان تایتان',
     subtitle: 'رقابت برای جوایز میلیونی',
-    bgColor: 'linear-gradient(135deg, #f59e0b 0%, #b45309 100%)', // Gold/Amber for tournaments
+    bgColor: 'linear-gradient(135deg, #f59e0b 0%, #b45309 100%)', // Gold/Amber
     baseColor: '#b45309',
     textColor: '#ffffff',
+    icon: <Trophy size={32} opacity={0.8} />
   },
   {
     id: 'fortnite',
     title: 'فورتنایت (Fortnite)',
     subtitle: 'ویباکس، کرو پک و باندل‌های نایاب',
-    bgColor: 'linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%)', // Blue/Purple for Fortnite
+    bgColor: 'linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%)', // Blue/Purple
     baseColor: '#8b5cf6',
     textColor: '#ffffff',
+    icon: <Gamepad2 size={32} opacity={0.8} />
   },
   {
     id: 'cod',
     title: 'کالاف دیوتی (Warzone)',
     subtitle: 'شارژ فوری CP و بتل‌پس بلک‌سل',
-    bgColor: 'linear-gradient(135deg, #4d7c0f 0%, #1a2e05 100%)', // Army Green for CoD
+    bgColor: 'linear-gradient(135deg, #4d7c0f 0%, #1a2e05 100%)', // Army Green
     baseColor: '#1a2e05',
     textColor: '#ffffff',
+    icon: <Crosshair size={32} opacity={0.8} />
   },
   {
     id: 'other',
     title: 'ولورانت و بیشتر',
     subtitle: 'ولورانت پوینت، کوین اپکس',
-    bgColor: 'linear-gradient(135deg, #ef4444 0%, #9f1239 100%)', // Red for Valorant/Apex
+    bgColor: 'linear-gradient(135deg, #ef4444 0%, #9f1239 100%)', // Red
     baseColor: '#9f1239',
     textColor: '#ffffff',
+    icon: <Target size={32} opacity={0.8} />
   }
 ];
 
 export default function StackedCardsHero() {
-  const [cards, setCards] = useState(initialCards);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [cards, setCards] = React.useState(initialCards);
+  const [isAnimating, setIsAnimating] = React.useState(false);
+
+  // Force sync during hot reload if the content actually changes
+  React.useEffect(() => {
+    setCards(initialCards);
+  }, [initialCards]);
 
   const moveToEnd = () => {
     if (isAnimating) return;
@@ -167,14 +176,8 @@ export default function StackedCardsHero() {
                           <h3 className={styles.cardTitle}>{card.title}</h3>
                           <p className={styles.cardSubtitle}>{card.subtitle}</p>
                         </div>
-                        {/* Fake Contactless Icon */}
-                        <div className={styles.contactless}>
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" fill="currentColor" fillOpacity="0.2"/>
-                            <path d="M8.5 15.5C9.88071 16.8807 11.5 17.5 13 17.5C14.5 17.5 16.1193 16.8807 17.5 15.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                            <path d="M10 12.5C10.9204 13.4204 12 13.8333 13 13.8333C14 13.8333 15.0796 13.4204 16 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                            <path d="M11.5 9.5C11.9602 9.9602 12.5 10.1667 13 10.1667C13.5 10.1667 14.0398 9.9602 14.5 9.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                          </svg>
+                        <div className={styles.gameIcon}>
+                          {card.icon}
                         </div>
                       </div>
                     </div>
