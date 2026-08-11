@@ -4,7 +4,7 @@
    RTL / Persian
    ============================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://cdn.jsdelivr.net/fontsource/css/estedad:vf@latest/index.css');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 /* =============================================
@@ -85,7 +85,7 @@
   --space-32: 128px;
 
   /* — Typography — */
-  --font-persian: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+  --font-persian: 'Estedad Variable', system-ui, -apple-system, sans-serif;
   --font-en: 'Outfit', var(--font-persian);
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 

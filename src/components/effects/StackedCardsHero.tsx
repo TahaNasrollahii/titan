@@ -2,45 +2,45 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, MousePointerClick, Trophy, Crosshair, Target, Gamepad2, Zap } from 'lucide-react';
+import { ArrowLeft, MousePointerClick, Wifi } from 'lucide-react';
 import styles from './StackedCardsHero.module.css';
 
 const initialCards = [
   {
-    id: 'tournaments',
-    title: 'لیگ قهرمانان تایتان',
-    subtitle: 'رقابت برای جوایز میلیونی',
-    bgColor: 'linear-gradient(135deg, #f59e0b 0%, #b45309 100%)', // Gold/Amber
-    baseColor: '#b45309',
+    id: 'fortnite',
+    title: 'فورتنایت',
+    subtitle: 'Fortnite Player',
+    bgColor: 'linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%)', // Blue
+    baseColor: '#0ea5e9',
     textColor: '#ffffff',
-    icon: <Trophy size={32} opacity={0.8} />
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/FortniteLogo.svg/512px-FortniteLogo.svg.png'
   },
   {
-    id: 'fortnite',
-    title: 'فورتنایت (Fortnite)',
-    subtitle: 'ویباکس، کرو پک و باندل‌های نایاب',
-    bgColor: 'linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%)', // Blue/Purple
-    baseColor: '#8b5cf6',
+    id: 'apex',
+    title: 'ایپکس لجندز',
+    subtitle: 'Apex Player',
+    bgColor: 'linear-gradient(135deg, #e5e7eb 0%, #ffffff 100%)', // White
+    baseColor: '#d1d5db',
+    textColor: '#dc2626', // Red text
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Apex_legends_logo.svg/512px-Apex_legends_logo.svg.png'
+  },
+  {
+    id: 'valorant',
+    title: 'ولورانت',
+    subtitle: 'Valorant Player',
+    bgColor: 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)', // Red
+    baseColor: '#b91c1c',
     textColor: '#ffffff',
-    icon: <Gamepad2 size={32} opacity={0.8} />
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Valorant_logo_-_white_color_version.svg/512px-Valorant_logo_-_white_color_version.svg.png'
   },
   {
     id: 'cod',
-    title: 'کالاف دیوتی (Warzone)',
-    subtitle: 'شارژ فوری CP و بتل‌پس بلک‌سل',
-    bgColor: 'linear-gradient(135deg, #4d7c0f 0%, #1a2e05 100%)', // Army Green
-    baseColor: '#1a2e05',
+    title: 'کالاف دیوتی',
+    subtitle: 'CoD Player',
+    bgColor: 'linear-gradient(135deg, #27272a 0%, #18181b 100%)', // Dark Gray
+    baseColor: '#18181b',
     textColor: '#ffffff',
-    icon: <Crosshair size={32} opacity={0.8} />
-  },
-  {
-    id: 'other',
-    title: 'ولورانت و بیشتر',
-    subtitle: 'ولورانت پوینت، کوین اپکس',
-    bgColor: 'linear-gradient(135deg, #ef4444 0%, #9f1239 100%)', // Red
-    baseColor: '#9f1239',
-    textColor: '#ffffff',
-    icon: <Target size={32} opacity={0.8} />
+    logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Call_of_Duty_Logo.svg/512px-Call_of_Duty_Logo.svg.png'
   }
 ];
 
@@ -51,7 +51,7 @@ export default function StackedCardsHero() {
   // Force sync during hot reload if the content actually changes
   React.useEffect(() => {
     setCards(initialCards);
-  }, [initialCards]);
+  }, []);
 
   const moveToEnd = () => {
     if (isAnimating) return;
@@ -63,7 +63,8 @@ export default function StackedCardsHero() {
       return newCards;
     });
     // Prevent clicking too fast
-    setTimeout(() => setIsAnimating(false), 600);
+    setTimeout(() => setIsAnimating(600), 600);
+    setIsAnimating(false);
   };
 
   return (
@@ -74,27 +75,31 @@ export default function StackedCardsHero() {
           {/* Right Side: Text Content (RTL) */}
           <div className={styles.textContent}>
             <h1 className={styles.mainTitle}>
-              <span className={styles.lightText}>با تایتان</span> وارد دنیای<br/>
-              <span className={styles.lightText}>تورنمنت‌ها</span> و<br/>
-              آیتم‌های بازی شوید <ArrowLeft className={styles.arrowIcon} size={48} />
+              خرید <span className={styles.lightText}>آیتم‌های بازی</span> با <br/>
+              کارت‌های <span className={styles.lightText}>اختصاصی</span> <br/>
+              تایتان <ArrowLeft className={styles.arrowIcon} size={48} />
             </h1>
             
             <p className={styles.description}>
-              پلتفرم جامع گیمینگ تایتان به شما اجازه می‌دهد در مسابقات حرفه‌ای رقابت کنید، و با خرید سریع آیتم‌های مختلف، همیشه یک قدم جلوتر از رقبا باشید.
+              طراحی اختصاصی کارت‌های گیمینگ خود را با تایتان در دست بگیرید - فقط کافیست بازی مورد علاقه خود را انتخاب کنید و وارد دنیای رقابت شوید.
             </p>
 
             <div className={styles.features}>
               <div className={styles.featureItem}>
-                <span className={styles.featureIcon}>🎮</span>
-                <span>مسابقات حرفه‌ای</span>
-              </div>
-              <div className={styles.featureItem}>
-                <span className={styles.featureIcon}>⚡</span>
-                <span>تحویل آنی آیتم‌ها</span>
+                <span className={styles.featureIcon}>🎧</span>
+                <span>پشتیبانی کاربری</span>
               </div>
               <div className={styles.featureItem}>
                 <span className={styles.featureIcon}>🛡️</span>
-                <span>پلتفرم امن و مطمئن</span>
+                <span>خرید امن و سریع</span>
+              </div>
+              <div className={styles.featureItem}>
+                <span className={styles.featureIcon}>⚡</span>
+                <span>تحویل آنی</span>
+              </div>
+              <div className={styles.featureItem}>
+                <span className={styles.featureIcon}>💳</span>
+                <span>تنوع پرداخت</span>
               </div>
             </div>
           </div>
@@ -115,8 +120,8 @@ export default function StackedCardsHero() {
             <motion.div 
               className={styles.cardsContainer} 
               onClick={moveToEnd}
-              animate={{ y: [-15, 15, -15] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+              animate={{ y: [-10, 10, -10] }}
+              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
             >
               {cards.map((card, index) => {
                 const isFront = index === 0;
@@ -126,19 +131,19 @@ export default function StackedCardsHero() {
                     key={card.id}
                     className={styles.card}
                     animate={{
-                      // When it moves back, it swings out and goes behind
-                      x: isFront ? 0 : index * -50,
-                      y: isFront ? 0 : index * -30,
-                      z: isFront ? 40 : index * -60,
-                      rotateY: isFront ? 0 : index * 12,
-                      rotateX: isFront ? 5 : 15,
-                      rotateZ: isFront ? 0 : index * -3,
+                      // Based on the image: stacked to the right, behind the front card
+                      x: isFront ? -40 : index * 40 - 40,
+                      y: isFront ? 0 : index * 15,
+                      z: isFront ? 40 : index * -50,
+                      rotateY: isFront ? 15 : 15,
+                      rotateX: isFront ? 10 : 10,
+                      rotateZ: isFront ? -5 : -5,
                     }}
                     transition={{
                       type: 'spring',
-                      stiffness: 150,
-                      damping: 18,
-                      mass: 1.2,
+                      stiffness: 120,
+                      damping: 15,
+                      mass: 1,
                     }}
                     style={{
                       cursor: isFront ? 'pointer' : 'default',
@@ -146,14 +151,14 @@ export default function StackedCardsHero() {
                     }}
                   >
                     {/* 3D Thickness Layers */}
-                    {[...Array(12)].map((_, i) => (
+                    {[...Array(6)].map((_, i) => (
                       <div 
                         key={i} 
                         className={styles.volumeLayer} 
                         style={{ 
                           transform: `translateZ(${-i}px)`,
-                          backgroundColor: i === 11 ? '#111' : card.baseColor,
-                          opacity: i === 11 ? 0.5 : 1
+                          backgroundColor: card.baseColor,
+                          opacity: 1
                         }} 
                       />
                     ))}
@@ -163,20 +168,33 @@ export default function StackedCardsHero() {
                       className={styles.cardFront}
                       style={{ background: card.bgColor, color: card.textColor }}
                     >
-                      {/* Gaming Badge instead of chip */}
-                      <div className={styles.gamingBadge}>
-                        <Zap size={14} className={styles.badgeIcon} />
-                        <span>TITAN</span>
+                      <div className={styles.cardHeader}>
+                        <div className={styles.chip}>
+                          <div className={styles.chipLine}></div>
+                          <div className={styles.chipLine}></div>
+                          <div className={styles.chipLine}></div>
+                          <div className={styles.chipLine}></div>
+                        </div>
+                        <Wifi className={styles.contactlessIcon} size={28} />
                       </div>
                       
-                      {/* Card Content */}
+                      <div className={styles.logoContainer}>
+                        <img 
+                          src={card.logoUrl} 
+                          alt={`${card.title} logo`} 
+                          className={styles.gameLogo}
+                          onError={(e) => {
+                            // fallback if image fails to load
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
+                        />
+                      </div>
+                      
+                      {/* Card Content Footer */}
                       <div className={styles.cardContent}>
                         <div>
                           <h3 className={styles.cardTitle}>{card.title}</h3>
                           <p className={styles.cardSubtitle}>{card.subtitle}</p>
-                        </div>
-                        <div className={styles.gameIcon}>
-                          {card.icon}
                         </div>
                       </div>
                     </div>
