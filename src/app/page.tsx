@@ -176,7 +176,7 @@ export default function HomePage() {
         viewport={{ once: true, amount: 0.2 }}
         variants={staggerContainer}
       >
-        <GradientOrb color="blue" size={350} bottom="0%" right="-10%" opacity={0.06} />
+        <GradientOrb color="blue" size={350} bottom="0%" right="-10%" opacity={0.02} />
         <div className="container">
           <SectionHeader
             eyebrow="رتبه‌بندی"
@@ -242,8 +242,8 @@ export default function HomePage() {
         viewport={{ once: true, amount: 0.5 }}
         variants={staggerContainer}
       >
-        <GradientOrb color="blue" size={500} top="-30%" left="20%" opacity={0.12} />
-        <GradientOrb color="violet" size={400} bottom="-20%" right="10%" opacity={0.1} />
+        <GradientOrb color="blue" size={500} top="-30%" left="20%" opacity={0.03} />
+        <GradientOrb color="violet" size={400} bottom="-20%" right="10%" opacity={0.02} />
         <div className={`container ${styles.ctaContent}`}>
           <motion.div variants={fadeUpItem}>
             <Sparkles size={40} style={{ color: 'var(--titan-accent-blue)' }} />

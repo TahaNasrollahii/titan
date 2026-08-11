@@ -6,6 +6,8 @@ import { Stars, Points, PointMaterial } from '@react-three/drei';
 // @ts-ignore
 import * as random from 'maath/random/dist/maath-random.esm';
 import * as THREE from 'three';
+import { useState } from 'react';
+import styles from './GalaxyBackground.module.css';
 
 function ParticleGroup({ count, color, size, speed, mouse }: { count: number, color: string, size: number, speed: number, mouse: React.MutableRefObject<{x: number, y: number}> }) {
   const ref = useRef<THREE.Points>(null);
@@ -74,6 +76,8 @@ function ParticleGroup({ count, color, size, speed, mouse }: { count: number, co
   );
 }
 
+// We use pure CSS for shooting stars now for vastly improved aesthetics and performance
+
 export default function GalaxyBackground() {
   const mouse = useRef({ x: -10, y: -10 }); // Default off-screen
 
@@ -87,24 +91,26 @@ export default function GalaxyBackground() {
   }, []);
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: -1,
-        pointerEvents: 'none',
-        background: '#05070D',
-      }}
-    >
+    <div className={styles.backgroundContainer}>
+      {/* Background Effects */}
+      <div className={styles.aurora} />
+      <div className={styles.nebula1} />
+      <div className={styles.nebula2} />
+      <div className={styles.nebula3} />
+
+      {/* 3D Stars & Meteors */}
       <Canvas camera={{ position: [0, 0, 1] }}>
         <ParticleGroup count={400} color="#00D4FF" size={0.005} speed={0.08} mouse={mouse} />
         <ParticleGroup count={400} color="#8B5CF6" size={0.003} speed={0.04} mouse={mouse} />
+        
         {/* Background distant stars (static) */}
         <Stars radius={100} depth={50} count={1000} factor={4} saturation={0} fade speed={0.5} />
       </Canvas>
+
+      {/* Meteors - Using pure CSS for beautiful light trails */}
+      <div className={styles.shootingStar} />
+      <div className={styles.shootingStar} />
+      <div className={styles.shootingStar} />
     </div>
   );
 }
