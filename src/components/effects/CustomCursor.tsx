@@ -66,21 +66,6 @@ export default function CustomCursor() {
         transition={{ duration: 0.15 }}
       />
 
-      {/* Outer Ring */}
-      <motion.div
-        className="cursor-ring"
-        style={{
-          x: ringX,
-          y: ringY,
-          marginLeft: -16,
-          marginTop: -16,
-        }}
-        animate={{
-          scale: isHovering ? 1.5 : 1,
-          borderColor: isHovering ? 'var(--titan-accent-violet)' : 'var(--titan-accent-blue)',
-        }}
-        transition={{ duration: 0.15 }}
-      />
     </>
   );
 }

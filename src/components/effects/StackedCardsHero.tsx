@@ -70,7 +70,7 @@ export default function StackedCardsHero() {
           <div className={styles.textContent}>
             <h1 className={styles.mainTitle}>
               خرید <span className={styles.lightText}>آیتم‌های بازی</span> <br />
-              با کارت‌های <span className={styles.lightText}>تایتان</span> <ArrowLeft className={styles.arrowIcon} size={48} />
+              با کارت‌های <span className={styles.lightText}>تایتان</span>
             </h1>
 
             <p className={styles.description}>
