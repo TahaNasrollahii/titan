@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, MousePointerClick, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Zap } from 'lucide-react';
 import styles from './StackedCardsHero.module.css';
 
-const initialBanners = [
+const baseCards = [
   {
     id: 'fortnite',
     title: 'فورتنایت',
-    subtitle: 'شروع یک نبرد حماسی',
+    subtitle: 'Fortnite Player',
     accentColor: '#0ea5e9',
     logoUrl: '/logos/fortnite.svg',
     tag: 'Battle Royale'
@@ -17,47 +17,49 @@ const initialBanners = [
   {
     id: 'apex',
     title: 'ایپکس لجندز',
-    subtitle: 'قهرمان خودت باش',
-    accentColor: '#ef4444',
+    subtitle: 'Apex Player',
+    accentColor: '#dc2626',
     logoUrl: '/logos/apex.svg',
     tag: 'Hero Shooter'
   },
   {
     id: 'valorant',
     title: 'ولورانت',
-    subtitle: 'دقت، استراتژی، پیروزی',
-    accentColor: '#dc2626',
+    subtitle: 'Valorant Player',
+    accentColor: '#ef4444',
     logoUrl: '/logos/valorant.svg',
     tag: 'Tactical'
   },
   {
     id: 'cod',
     title: 'کالاف دیوتی',
-    subtitle: 'تاریکی در انتظار شماست',
+    subtitle: 'CoD Player',
     accentColor: '#fbbf24',
     logoUrl: '/logos/cod.svg',
     tag: 'Action'
   }
 ];
 
+const cards = [...baseCards, ...baseCards.map(c => ({ ...c, id: c.id + '_copy' }))];
+
 export default function StackedCardsHero() {
-  const [banners, setBanners] = useState(initialBanners);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    setBanners(initialBanners);
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % cards.length);
+    }, 3000);
+    return () => clearInterval(timer);
   }, []);
 
-  const moveToEnd = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setBanners((prev) => {
-      const newBanners = [...prev];
-      const first = newBanners.shift();
-      if (first) newBanners.push(first);
-      return newBanners;
-    });
-    setTimeout(() => setIsAnimating(false), 800);
+  const handleCardClick = (offset: number) => {
+    if (offset !== 0) {
+      setCurrentIndex((prev) => {
+        let next = prev + offset;
+        while (next < 0) next += cards.length;
+        return next % cards.length;
+      });
+    }
   };
 
   return (
@@ -65,11 +67,10 @@ export default function StackedCardsHero() {
       <div className="container">
         <div className={styles.contentWrapper}>
 
-          {/* Right Side: Text Content */}
           <div className={styles.textContent}>
             <h1 className={styles.mainTitle}>
               خرید <span className={styles.lightText}>آیتم‌های بازی</span> <br />
-              با کارت‌های <span className={styles.lightText}>تایتان</span> <br />
+              با کارت‌های <span className={styles.lightText}>تایتان</span> <ArrowLeft className={styles.arrowIcon} size={48} />
             </h1>
 
             <p className={styles.description}>
@@ -92,110 +93,122 @@ export default function StackedCardsHero() {
             </div>
           </div>
 
-          {/* Left Side: 3D Glass Banners */}
           <div className={styles.cardsSide}>
+
+            {/* Glassy Click Hint */}
             <motion.div
-              className={styles.clickHint}
-              animate={{ y: [0, -8, 0], opacity: [0.6, 1, 0.6] }}
-              transition={{ repeat: Infinity, duration: 2 }}
+              className={styles.clickHintBadge}
+              animate={{ y: [0, -8, 0], opacity: [0.7, 1, 0.7] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             >
-              <MousePointerClick size={20} />
-              <span>برای دیدن بنر بعدی کلیک کنید</span>
+              <span className={styles.hintText}>برای تغییر کلیک کنید</span>
+              <motion.div
+                className={styles.hintPulse}
+                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+              />
             </motion.div>
 
-            <div className={styles.cardsContainer} onClick={moveToEnd}>
-              <AnimatePresence mode="popLayout">
-                {banners.map((banner, index) => {
-                  const isFront = index === 0;
+            {/* Cosmic Eruption Beams Removed */}
 
-                  // Base 3D Position
-                  let z = -index * 100;
-                  let y = index * -40;
-                  let x = index * -50;
-                  let rotateX = 10 + index * 5;
-                  let rotateY = -15 + index * -5;
-                  let rotateZ = index * -2;
-                  let opacity = 1 - (index * 0.25);
-                  let blur = index * 2;
+            <motion.div
+              className={styles.cardsContainer}
+              animate={{ y: [-15, 15, -15] }}
+              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+            >
+              {cards.map((card, i) => {
+                let offset = i - currentIndex;
+                const length = cards.length;
 
-                  // Enhance the front card
-                  if (isFront) {
-                    z = 80;
-                    y = 0;
-                    x = 0;
-                    rotateX = 5;
-                    rotateY = -20;
-                    rotateZ = 0;
-                  }
+                while (offset > length / 2) offset -= length;
+                while (offset < -length / 2) offset += length;
 
-                  return (
-                    <motion.div
-                      key={banner.id}
-                      className={styles.bannerCard}
-                      animate={{
-                        z,
-                        y,
-                        x,
-                        rotateX,
-                        rotateY,
-                        rotateZ,
-                        opacity: index > 3 ? 0 : opacity,
-                        filter: `blur(${blur}px)`,
-                      }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 90,
-                        damping: 14,
-                        mass: 1.2,
-                      }}
-                      style={{
-                        zIndex: banners.length - index,
-                      }}
-                    >
-                      {/* Floating animation for the active card */}
-                      <motion.div
-                        className={styles.preserve3dWrapper}
-                        animate={isFront ? { y: [-8, 8, -8] } : { y: 0 }}
-                        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                      >
-                        <div className={styles.glassBg}>
-                          <div
-                            className={styles.glowOrb}
-                            style={{ backgroundColor: banner.accentColor }}
+                const absOffset = Math.abs(offset);
+                const isActive = absOffset === 0;
+
+                let y = 0;
+                let scale = 1;
+                let blur = 0;
+                let opacity = 1;
+                let zIndex = 10;
+
+                if (absOffset === 0) {
+                  y = 0;
+                  scale = 1;
+                  blur = 0;
+                  opacity = 1;
+                  zIndex = 10;
+                } else if (absOffset === 1) {
+                  y = offset * 160;
+                  scale = 0.85;
+                  blur = 5;
+                  opacity = 0.6;
+                  zIndex = 5;
+                } else {
+                  y = offset * 240;
+                  scale = 0.6;
+                  blur = 10;
+                  opacity = 0;
+                  zIndex = 0;
+                }
+
+                const rotateX = offset * -8; // slight tilt for top/bottom
+
+                return (
+                  <motion.div
+                    key={card.id}
+                    className={styles.bannerCard}
+                    onClick={() => handleCardClick(offset)}
+                    animate={{
+                      y,
+                      scale,
+                      opacity,
+                      filter: `blur(${blur}px)`,
+                      rotateX,
+                    }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 90,
+                      damping: 18,
+                      mass: 1.2,
+                    }}
+                    style={{
+                      zIndex,
+                      cursor: isActive ? 'default' : 'pointer',
+                      pointerEvents: opacity === 0 ? 'none' : 'auto',
+                    }}
+                  >
+                    <motion.div className={styles.preserve3dWrapper}>
+                      <div className={styles.glassBg}>
+                        {/* Removed glow orbs per user request */}
+                      </div>
+
+                      <div className={styles.bannerContent}>
+                        <div className={styles.bannerHeader}>
+                          <img
+                            src={card.logoUrl}
+                            alt={card.title}
+                            className={styles.gameLogo}
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = 'none';
+                            }}
                           />
-                          <div
-                            className={styles.glowOrbSecondary}
-                            style={{ backgroundColor: banner.accentColor }}
-                          />
+                          <div className={styles.tagBadge}>
+                            <Zap size={14} color={card.accentColor} />
+                            <span style={{ color: '#fff' }}>{card.tag}</span>
+                          </div>
                         </div>
 
-                        <div className={styles.bannerContent}>
-                          <div className={styles.bannerHeader}>
-                            <img
-                              src={banner.logoUrl}
-                              alt={banner.title}
-                              className={styles.gameLogo}
-                              onError={(e) => {
-                                (e.target as HTMLImageElement).style.display = 'none';
-                              }}
-                            />
-                            <div className={styles.tagBadge}>
-                              <Zap size={14} color={banner.accentColor} />
-                              <span style={{ color: '#fff' }}>{banner.tag}</span>
-                            </div>
-                          </div>
-
-                          <div className={styles.bannerFooter}>
-                            <h3 className={styles.bannerTitle}>{banner.title}</h3>
-                            <p className={styles.bannerSubtitle}>{banner.subtitle}</p>
-                          </div>
+                        <div className={styles.bannerFooter}>
+                          <h3 className={styles.bannerTitle}>{card.title}</h3>
+                          <p className={styles.bannerSubtitle}>{card.subtitle}</p>
                         </div>
-                      </motion.div>
+                      </div>
                     </motion.div>
-                  );
-                })}
-              </AnimatePresence>
-            </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
           </div>
 
         </div>
