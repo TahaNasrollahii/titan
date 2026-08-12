@@ -9,6 +9,7 @@
   align-items: center;
   transition: all var(--transition-base);
   background: transparent;
+  border-bottom: 1px solid transparent;
 }
 
 .scrolled {
