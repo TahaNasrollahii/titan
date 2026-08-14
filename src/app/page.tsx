@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import GradientOrb from '@/components/effects/GradientOrb';
-import StackedCardsHero from '@/components/effects/StackedCardsHero';
+import HeroCoverflow from '@/components/hero/HeroCoverflow';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Button from '@/components/ui/Button';
 import TournamentCard from '@/components/cards/TournamentCard';
@@ -58,7 +58,7 @@ export default function HomePage() {
     <>
       <Navbar />
 
-      <StackedCardsHero />
+      <HeroCoverflow />
 
       {/* ==================== LIVE BATTLES ==================== */}
       <motion.section 
