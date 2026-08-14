@@ -23,6 +23,8 @@ interface SlideData {
   buttonText: string;
   buttonLink: string;
   glowColor: string;
+  image: string;
+  imageStyle?: React.CSSProperties;
 }
 
 const slides: SlideData[] = [
@@ -43,6 +45,8 @@ const slides: SlideData[] = [
     buttonText: 'ورود به مسابقات',
     buttonLink: '/tournaments',
     glowColor: '#fbbf24', // Gold
+    image: '/images/hero/characters/valorant.png',
+    imageStyle: { left: '-15%' }, // Shifted further left
   },
   {
     id: 'fortnite',
@@ -61,6 +65,8 @@ const slides: SlideData[] = [
     buttonText: 'خرید از فروشگاه',
     buttonLink: '/store?category=fortnite',
     glowColor: '#a855f7', // Purple
+    image: '/images/hero/characters/fortnite.png',
+    imageStyle: { height: '95%', left: '0%' }, // Made slightly larger and shifted slightly left
   },
   {
     id: 'apex',
@@ -79,6 +85,8 @@ const slides: SlideData[] = [
     buttonText: 'خرید ایپکس کوین',
     buttonLink: '/store?category=apex',
     glowColor: '#ef4444', // Red
+    image: '/images/hero/characters/apex.png',
+    imageStyle: { height: '95%', left: '5%' }, // Made slightly larger and shifted right
   },
   {
     id: 'cod',
@@ -97,6 +105,8 @@ const slides: SlideData[] = [
     buttonText: 'خرید سی‌پی',
     buttonLink: '/store?category=cod',
     glowColor: '#22c55e', // Green
+    image: '/images/hero/characters/callofduty.png',
+    imageStyle: { height: '95%', left: '5%' }, // Made slightly larger and shifted right
   },
 ];
 
@@ -140,6 +150,16 @@ const TiltCard = ({ slide }: { slide: SlideData }) => {
         <div 
           className={styles.glowBg} 
           style={{ backgroundColor: slide.glowColor }} 
+        />
+
+        <motion.img
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          src={slide.image}
+          alt={slide.id}
+          className={styles.characterImg}
+          style={slide.imageStyle}
         />
         
         <div className={styles.content}>

@@ -92,6 +92,18 @@
   transition: all 0.5s ease;
 }
 
+.characterImg {
+  position: absolute;
+  bottom: -5%;
+  left: -5%;
+  height: 110%;
+  width: auto;
+  z-index: 3;
+  transform: translateZ(60px);
+  pointer-events: none;
+  filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
+}
+
 .content {
   flex: 1;
   display: flex;
@@ -99,9 +111,12 @@
   gap: 1.5rem;
   z-index: 2;
   position: relative;
-  align-items: center; /* Center content since there are no images */
-  text-align: center;
+  align-items: flex-start;
+  text-align: right;
   transform: translateZ(40px); /* 3D pop-out effect */
+  width: 60%;
+  margin-right: 0;
+  margin-left: auto;
 }
 
 .tag {
