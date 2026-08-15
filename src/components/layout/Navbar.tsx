@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Search, ShoppingCart, User, Menu, X, ChevronDown } from 'lucide-react';
+import { Search, ShoppingCart, User, X, ChevronDown } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import styles from './Navbar.module.css';
 
@@ -15,7 +15,6 @@ const navLinks = [
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
@@ -26,14 +25,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (isMobileOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [isMobileOpen]);
+
 
   return (
     <>
@@ -75,13 +67,6 @@ export default function Navbar() {
               </Button>
             </div>
 
-            <button
-              className={`${styles.menuToggle} ${styles.mobileOnly}`}
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
-              aria-label={isMobileOpen ? 'بستن منو' : 'باز کردن منو'}
-            >
-              {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
         </div>
 
@@ -106,31 +91,6 @@ export default function Navbar() {
         )}
       </header>
 
-      {/* Mobile Menu */}
-      <div className={`${styles.mobileOverlay} ${isMobileOpen ? styles.open : ''}`} onClick={() => setIsMobileOpen(false)} />
-      <nav className={`${styles.mobileMenu} ${isMobileOpen ? styles.open : ''}`}>
-        <div className={styles.mobileHeader}>
-          <a href="/" className={styles.logo}>
-            <span className={styles.logoIcon}>◆</span>
-            <span className={`${styles.logoText} en-text`}>TITAN</span>
-          </a>
-          <button className={styles.iconBtn} onClick={() => setIsMobileOpen(false)} aria-label="بستن منو">
-            <X size={24} />
-          </button>
-        </div>
-        <div className={styles.mobileLinks}>
-          {navLinks.map(link => (
-            <a key={link.href} href={link.href} className={styles.mobileLink}>
-              {link.label}
-            </a>
-          ))}
-        </div>
-        <div className={styles.mobileFooter}>
-          <Button fullWidth variant="primary" href="/login" icon={<User size={18} />}>
-            ورود / ثبت‌نام
-          </Button>
-        </div>
-      </nav>
     </>
   );
 }
