@@ -46,7 +46,7 @@ const slides: SlideData[] = [
     buttonLink: '/tournaments',
     glowColor: '#fbbf24', // Gold
     image: '/images/hero/characters/valorant.png',
-    imageStyle: { left: '-15%' }, // Shifted further left
+    imageStyle: { left: '-15%', maxWidth: '65%', height: '135%' }, // Increased height and maxWidth to make the Valorant character significantly larger
   },
   {
     id: 'fortnite',
@@ -66,7 +66,7 @@ const slides: SlideData[] = [
     buttonLink: '/store?category=fortnite',
     glowColor: '#a855f7', // Purple
     image: '/images/hero/characters/fortnite.png',
-    imageStyle: { height: '95%', left: '0%' }, // Made slightly larger and shifted slightly left
+    imageStyle: { height: '95%', left: '0%', maxWidth: '35%' }, // Made slightly larger and shifted slightly left
   },
   {
     id: 'apex',
@@ -86,7 +86,7 @@ const slides: SlideData[] = [
     buttonLink: '/store?category=apex',
     glowColor: '#ef4444', // Red
     image: '/images/hero/characters/apex.png',
-    imageStyle: { height: '95%', left: '5%' }, // Made slightly larger and shifted right
+    imageStyle: { height: '95%', left: '5%', maxWidth: '35%' }, // Made slightly larger and shifted right
   },
   {
     id: 'cod',
@@ -106,7 +106,7 @@ const slides: SlideData[] = [
     buttonLink: '/store?category=cod',
     glowColor: '#22c55e', // Green
     image: '/images/hero/characters/callofduty.png',
-    imageStyle: { height: '95%', left: '5%' }, // Made slightly larger and shifted right
+    imageStyle: { height: '95%', left: '5%', maxWidth: '30%' }, // Shifted right and restricted width to appear smaller
   },
 ];
 
@@ -158,7 +158,7 @@ const TiltCard = ({ slide }: { slide: SlideData }) => {
           transition={{ duration: 0.7, ease: "easeOut" }}
           src={slide.image}
           alt={slide.id}
-          className={styles.characterImg}
+          className={`${styles.characterImg} ${styles[slide.id] || ''}`}
           style={slide.imageStyle}
         />
         

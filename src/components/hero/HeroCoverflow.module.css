@@ -97,14 +97,15 @@
   bottom: -5%;
   left: -5%;
   height: 110%;
-  width: auto;
+  width: 100%;
+  max-width: 42%; /* Dynamically bounds the image to the left 42% of the card */
+  object-fit: contain;
+  object-position: bottom left;
   z-index: 2;
   transform: translateZ(40px);
   pointer-events: none;
   filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
-  opacity: 0.4 !important; /* Glass-like transparency, !important overrides framer-motion inline style */
-  -webkit-mask-image: linear-gradient(to left, transparent 0%, black 30%, black 100%);
-  mask-image: linear-gradient(to left, transparent 0%, black 30%, black 100%);
+  transition: all 0.3s ease;
 }
 
 .content {
@@ -208,10 +209,8 @@
   .glassCard {
     padding: 2rem;
   }
-  .characterImg {
-    opacity: 0.3 !important;
-    z-index: 1;
-    transform: translateZ(20px);
+  .apex, .fortnite {
+    max-width: 35% !important;
   }
 }
 
@@ -223,7 +222,7 @@
   .glassCard {
     padding: 1.5rem;
   }
-  .characterImg {
-    opacity: 0.15 !important;
+  .apex, .fortnite {
+    max-width: 25% !important;
   }
 }
