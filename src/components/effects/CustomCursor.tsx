@@ -51,21 +51,7 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Outer Ring */}
-      <motion.div
-        className="cursor-ring"
-        style={{
-          x: ringX,
-          y: ringY,
-          marginLeft: -16,
-          marginTop: -16,
-        }}
-        animate={{
-          scale: isHovering ? 1.5 : 1,
-          opacity: isHovering ? 0 : 1,
-        }}
-        transition={{ duration: 0.15 }}
-      />
+
       {/* Inner Dot */}
       <motion.div
         className="cursor-dot"

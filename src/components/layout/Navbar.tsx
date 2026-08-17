@@ -74,13 +74,33 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className={styles.actions}>
-            <button
-              className={styles.iconBtn}
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              aria-label="جستجو"
-            >
-              <Search size={20} />
-            </button>
+            <div className={styles.searchWrapper}>
+              <button
+                className={styles.iconBtn}
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                aria-label="جستجو"
+              >
+                <Search size={20} />
+              </button>
+
+              {/* Search Bar */}
+              {isSearchOpen && (
+                <div className={styles.searchBar}>
+                  <div className={styles.searchInner}>
+                    <Search size={20} className={styles.searchIcon} />
+                    <input
+                      type="text"
+                      placeholder="جستجو..."
+                      className={styles.searchInput}
+                      autoFocus
+                    />
+                    <button onClick={() => setIsSearchOpen(false)} className={styles.searchClose}>
+                      <X size={18} />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             <a href="/cart" className={styles.iconBtn} aria-label="سبد خرید">
               <ShoppingCart size={20} />
@@ -95,24 +115,6 @@ export default function Navbar() {
 
           </div>
         </div>
-
-        {/* Search Bar */}
-        {isSearchOpen && (
-          <div className={styles.searchBar}>
-            <div className={styles.searchInner}>
-              <Search size={20} className={styles.searchIcon} />
-              <input
-                type="text"
-                placeholder="جستجو..."
-                className={styles.searchInput}
-                autoFocus
-              />
-              <button onClick={() => setIsSearchOpen(false)} className={styles.searchClose}>
-                <X size={18} />
-              </button>
-            </div>
-          </div>
-        )}
       </header>
 
     </>
