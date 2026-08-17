@@ -9,7 +9,17 @@ const navLinks = [
   { label: 'خانه', href: '/' },
   { label: 'فروشگاه', href: '/store' },
   { label: 'مسابقات', href: '/tournaments' },
-  { label: 'بازی‌ها', href: '/games' },
+  { 
+    label: 'بازی‌ها', 
+    href: '/games',
+    dropdown: [
+      { label: 'کال آف دیوتی', href: '/games/cod' },
+      { label: 'دوتا ۲', href: '/games/dota2' },
+      { label: 'ولورانت', href: '/games/valorant' },
+      { label: 'فیفا ۲۴', href: '/games/fc24' },
+      { label: 'کانتر استرایک', href: '/games/cs2' },
+    ]
+  },
   { label: 'رتبه‌بندی', href: '/leaderboard' },
 ];
 
@@ -40,9 +50,22 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <nav className={styles.desktopNav}>
             {navLinks.map(link => (
-              <a key={link.href} href={link.href} className={styles.navLink}>
-                {link.label}
-              </a>
+              <div key={link.href} className={styles.navItem}>
+                <a href={link.href} className={styles.navLink}>
+                  {link.label}
+                  {link.dropdown && <ChevronDown size={14} className={styles.dropdownIcon} />}
+                </a>
+                
+                {link.dropdown && (
+                  <div className={styles.dropdownMenu}>
+                    {link.dropdown.map(dropLink => (
+                      <a key={dropLink.href} href={dropLink.href} className={styles.dropdownItem}>
+                        {dropLink.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
 
