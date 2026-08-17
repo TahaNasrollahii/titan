@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Search, ShoppingCart, User, X, ChevronDown } from 'lucide-react';
+import { Search, ShoppingCart, User, X, ChevronDown, Crosshair, Swords, Flame, Target, Trophy, Gamepad2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import styles from './Navbar.module.css';
 
@@ -12,12 +12,14 @@ const navLinks = [
   { 
     label: 'بازی‌ها', 
     href: '/games',
+    isGrid: true,
     dropdown: [
-      { label: 'کال آف دیوتی', href: '/games/cod' },
-      { label: 'دوتا ۲', href: '/games/dota2' },
-      { label: 'ولورانت', href: '/games/valorant' },
-      { label: 'فیفا ۲۴', href: '/games/fc24' },
-      { label: 'کانتر استرایک', href: '/games/cs2' },
+      { label: 'کال آف دیوتی', href: '/games/cod', icon: <Crosshair size={18} /> },
+      { label: 'دوتا ۲', href: '/games/dota2', icon: <Swords size={18} /> },
+      { label: 'ولورانت', href: '/games/valorant', icon: <Flame size={18} /> },
+      { label: 'فیفا ۲۴', href: '/games/fc24', icon: <Trophy size={18} /> },
+      { label: 'کانتر استرایک', href: '/games/cs2', icon: <Target size={18} /> },
+      { label: 'سایر بازی‌ها', href: '/games/all', icon: <Gamepad2 size={18} /> },
     ]
   },
   { label: 'رتبه‌بندی', href: '/leaderboard' },
@@ -57,10 +59,11 @@ export default function Navbar() {
                 </a>
                 
                 {link.dropdown && (
-                  <div className={styles.dropdownMenu}>
+                  <div className={`${styles.dropdownMenu} ${link.isGrid ? styles.gridMenu : ''}`}>
                     {link.dropdown.map(dropLink => (
                       <a key={dropLink.href} href={dropLink.href} className={styles.dropdownItem}>
-                        {dropLink.label}
+                        {dropLink.icon && <span className={styles.dropIcon}>{dropLink.icon}</span>}
+                        <span className={styles.dropText}>{dropLink.label}</span>
                       </a>
                     ))}
                   </div>
@@ -96,19 +99,17 @@ export default function Navbar() {
         {/* Search Bar */}
         {isSearchOpen && (
           <div className={styles.searchBar}>
-            <div className="container">
-              <div className={styles.searchInner}>
-                <Search size={20} className={styles.searchIcon} />
-                <input
-                  type="text"
-                  placeholder="جستجوی بازی، تورنمنت، محصول..."
-                  className={styles.searchInput}
-                  autoFocus
-                />
-                <button onClick={() => setIsSearchOpen(false)} className={styles.searchClose}>
-                  <X size={18} />
-                </button>
-              </div>
+            <div className={styles.searchInner}>
+              <Search size={20} className={styles.searchIcon} />
+              <input
+                type="text"
+                placeholder="جستجو..."
+                className={styles.searchInput}
+                autoFocus
+              />
+              <button onClick={() => setIsSearchOpen(false)} className={styles.searchClose}>
+                <X size={18} />
+              </button>
             </div>
           </div>
         )}
