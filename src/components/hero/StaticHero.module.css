@@ -5,7 +5,7 @@
   align-items: center;
   padding-top: var(--navbar-height);
   overflow: hidden;
-  background: var(--titan-gradient-hero);
+  background: transparent;
 }
 
 .container {
@@ -81,48 +81,188 @@
   position: relative;
   width: 100%;
   max-width: 600px;
-  aspect-ratio: 1 / 1;
-  border-radius: var(--radius-full);
-  animation: float 6s ease-in-out infinite;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-2xl);
+  perspective: 1000px;
+  overflow: visible; /* Character might pop out slightly */
 }
 
-.heroImage {
+.carouselSlide {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: var(--radius-full);
-  position: relative;
+  border-radius: var(--radius-2xl);
+  /* Removed overflow: hidden to allow character pop-out */
   z-index: 2;
-  box-shadow: 0 0 40px rgba(0, 212, 255, 0.2), 0 0 80px rgba(255, 16, 122, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.05);
 }
 
-.glowBlue {
+/* Base Glass layer containing the gradients and border */
+.carouselGlassBase {
   position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  background: rgba(10, 14, 23, 0.6);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  box-shadow: 
+    0 40px 80px rgba(0, 0, 0, 0.6), 
+    inset 0 0 80px rgba(255, 255, 255, 0.05),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+
+.carouselGradient {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  mix-blend-mode: color-dodge; /* Galaxy vibrant effect */
+  opacity: 0.8;
+}
+
+.characterLayer {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  height: 120%; /* Makes character explicitly pop out of the top bounds */
+  width: auto;
+  z-index: 5;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.8));
+  pointer-events: none;
+}
+
+.carouselInfo {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  z-index: 6;
+  background: linear-gradient(to top, rgba(5, 7, 13, 0.95), rgba(5, 7, 13, 0.6) 60%, transparent);
+  border-bottom-left-radius: var(--radius-2xl);
+  border-bottom-right-radius: var(--radius-2xl);
+}
+
+.carouselTitle {
+  font-family: var(--font-en);
+  font-size: var(--text-4xl);
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: var(--space-2);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.8), 0 0 10px rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.02em;
+}
+
+.carouselSubtitle {
+  font-size: var(--text-base);
+  color: var(--titan-text-secondary);
+  font-weight: 500;
+}
+
+.indicators {
+  position: absolute;
+  bottom: var(--space-6);
+  left: var(--space-6);
+  display: flex;
+  gap: var(--space-2);
+  z-index: 10;
+}
+
+/* Nav Arrows */
+.navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  z-index: 20;
+  transition: all var(--transition-base);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.navArrow:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.navArrowLeft {
+  left: -24px;
+}
+
+.navArrowRight {
+  right: -24px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dotActive {
+  background: #fff;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* --- Floating Glass Boxes --- */
+.glassBox {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4), 
+    inset 0 0 20px rgba(255, 255, 255, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  z-index: 10;
+}
+
+.box1 {
   top: 10%;
-  left: 10%;
-  width: 60%;
-  height: 60%;
-  background: var(--titan-accent-blue);
-  filter: blur(100px);
-  opacity: 0.4;
-  z-index: 1;
-  border-radius: 50%;
-  animation: pulse 4s infinite alternate;
+  right: -5%;
 }
 
-.glowMagenta {
-  position: absolute;
-  bottom: 10%;
-  right: 10%;
-  width: 60%;
-  height: 60%;
-  background: var(--titan-accent-violet);
-  filter: blur(100px);
-  opacity: 0.4;
-  z-index: 1;
-  border-radius: 50%;
-  animation: pulse 5s infinite alternate-reverse;
+.box2 {
+  bottom: 15%;
+  left: -5%;
+}
+
+.box3 {
+  bottom: -5%;
+  right: 35%;
 }
 
 @media (max-width: 1023px) {
