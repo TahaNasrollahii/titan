@@ -27,14 +27,14 @@
   --titan-accent-blue-dim: #0098B8;
   --titan-accent-blue-bright: #40E0FF;
 
-  /* — Secondary Accent: Violet — */
-  --titan-accent-violet: #8B5CF6;
-  --titan-accent-violet-dim: #6D3FD0;
-  --titan-accent-violet-bright: #A78BFA;
+  /* — Secondary Accent: Magenta (Replacing Violet for new theme) — */
+  --titan-accent-violet: #FF107A;
+  --titan-accent-violet-dim: #D80066;
+  --titan-accent-violet-bright: #FF4DA6;
 
   /* — Optional Highlight: Magenta — */
-  --titan-accent-magenta: #EC4899;
-  --titan-accent-magenta-dim: #BE185D;
+  --titan-accent-magenta: #FF107A;
+  --titan-accent-magenta-dim: #D80066;
 
   /* — Status Colors — */
   --titan-status-live: #EF4444;
