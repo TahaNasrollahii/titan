@@ -10,6 +10,7 @@ const banners = [
     title: 'VALORANT',
     subtitle: 'رقابت‌های تاکتیکال و هیجان‌انگیز',
     character: '/images/hero/characters/valorant.png',
+    customStyle: { left: '-10%', transform: 'scale(1.15)', transformOrigin: 'bottom left' },
     gradient: 'radial-gradient(circle at 70% 30%, rgba(255, 70, 85, 0.8), rgba(15, 25, 35, 0.9) 70%)',
     glowColor: 'rgba(255, 70, 85, 0.5)'
   },
@@ -157,6 +158,7 @@ export default function StaticHero() {
                 >
                   {/* Glass Base (clips background, allows character to overflow above) */}
                   <div className={styles.carouselGlassBase}>
+                    <img src="/images/hero/hero-bg.jpg" alt="Space" className={styles.carouselSpaceBg} />
                     <div 
                       className={styles.carouselGradient} 
                       style={{ background: banners[currentSlide].gradient }}
@@ -168,6 +170,7 @@ export default function StaticHero() {
                     src={banners[currentSlide].character} 
                     alt={banners[currentSlide].title}
                     className={styles.characterLayer}
+                    style={banners[currentSlide].customStyle || {}}
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1, y: [0, -8, 0] }}
                     transition={{ 
@@ -210,57 +213,24 @@ export default function StaticHero() {
                 ))}
               </div>
 
-            {/* Super realistic floating boxes */}
-            <motion.div 
-              className={`${styles.glassBox} ${styles.box1}`}
-              animate={{
-                y: [0, -30, 0],
-                x: [0, 15, 0],
-                rotate: [0, 10, -5, 0],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <Gamepad2 size={32} className="text-accent" />
-            </motion.div>
-            
-            <motion.div 
-              className={`${styles.glassBox} ${styles.box2}`}
-              animate={{
-                y: [0, 40, 0],
-                x: [0, -20, 0],
-                rotate: [0, -15, 10, 0],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1
-              }}
-            >
-              <Trophy size={32} className="text-violet" />
-            </motion.div>
-            
-            <motion.div 
-              className={`${styles.glassBox} ${styles.box3}`}
-              animate={{
-                y: [0, -25, 0],
-                x: [0, -15, 0],
-                scale: [1, 1.1, 1],
-                rotate: [0, 5, -5, 0],
-              }}
-              transition={{
-                duration: 9,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 2
-              }}
-            >
-              <span style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--titan-text-primary)' }}>10K+</span>
-            </motion.div>
+              {/* Rotating glass boxes around the carousel */}
+              <div className={`${styles.orbitTrack} ${styles.track1}`}>
+                <div className={`${styles.glassBox} ${styles.box1}`}>
+                  <Gamepad2 size={32} className="text-accent" />
+                </div>
+              </div>
+              
+              <div className={`${styles.orbitTrack} ${styles.track2}`}>
+                <div className={`${styles.glassBox} ${styles.box2}`}>
+                  <Trophy size={32} className="text-violet" />
+                </div>
+              </div>
+              
+              <div className={`${styles.orbitTrack} ${styles.track3}`}>
+                <div className={`${styles.glassBox} ${styles.box3}`}>
+                  <span style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--titan-text-primary)' }}>10K+</span>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
