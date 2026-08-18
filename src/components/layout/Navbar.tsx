@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Search, ShoppingCart, User, X, ChevronDown, Crosshair, Swords, Flame, Target, Trophy, Gamepad2 } from 'lucide-react';
+import { Search, ShoppingCart, ChevronDown, Crosshair, Swords, Flame, Target, Trophy, Gamepad2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import styles from './Navbar.module.css';
 
@@ -27,7 +27,6 @@ const navLinks = [
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,76 +42,65 @@ export default function Navbar() {
     <>
       <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={`container ${styles.headerInner}`}>
-          {/* Logo */}
-          <a href="/" className={styles.logo}>
-            <span className={styles.logoIcon}>◆</span>
-            <span className={`${styles.logoText} en-text`}>TITAN</span>
-          </a>
+          {/* Right Section (in RTL): Logo & Nav */}
+          <div className={styles.navGroup}>
+            {/* Logo */}
+            <a href="/" className={styles.logo}>
+              <span className={styles.logoIcon}>◆</span>
+              <span className={`${styles.logoText} en-text`}>TITAN</span>
+            </a>
 
-          {/* Desktop Navigation */}
-          <nav className={styles.desktopNav}>
-            {navLinks.map(link => (
-              <div key={link.href} className={styles.navItem}>
-                <a href={link.href} className={styles.navLink}>
-                  {link.label}
-                  {link.dropdown && <ChevronDown size={14} className={styles.dropdownIcon} />}
-                </a>
-                
-                {link.dropdown && (
-                  <div className={`${styles.dropdownMenu} ${link.isGrid ? styles.gridMenu : ''}`}>
-                    {link.dropdown.map(dropLink => (
-                      <a key={dropLink.href} href={dropLink.href} className={styles.dropdownItem}>
-                        {dropLink.icon && <span className={styles.dropIcon}>{dropLink.icon}</span>}
-                        <span className={styles.dropText}>{dropLink.label}</span>
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
-
-          {/* Actions */}
-          <div className={styles.actions}>
-            <div className={styles.searchWrapper}>
-              <button
-                className={styles.iconBtn}
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                aria-label="جستجو"
-              >
-                <Search size={20} />
-              </button>
-
-              {/* Search Bar */}
-              {isSearchOpen && (
-                <div className={styles.searchBar}>
-                  <div className={styles.searchInner}>
-                    <Search size={20} className={styles.searchIcon} />
-                    <input
-                      type="text"
-                      placeholder="جستجو..."
-                      className={styles.searchInput}
-                      autoFocus
-                    />
-                    <button onClick={() => setIsSearchOpen(false)} className={styles.searchClose}>
-                      <X size={18} />
-                    </button>
-                  </div>
+            {/* Desktop Navigation */}
+            <nav className={styles.desktopNav}>
+              {navLinks.map(link => (
+                <div key={link.href} className={styles.navItem}>
+                  <a href={link.href} className={styles.navLink}>
+                    {link.label}
+                    {link.dropdown && <ChevronDown size={14} className={styles.dropdownIcon} />}
+                  </a>
+                  
+                  {link.dropdown && (
+                    <div className={`${styles.dropdownMenu} ${link.isGrid ? styles.gridMenu : ''}`}>
+                      {link.dropdown.map(dropLink => (
+                        <a key={dropLink.href} href={dropLink.href} className={styles.dropdownItem}>
+                          {dropLink.icon && <span className={styles.dropIcon}>{dropLink.icon}</span>}
+                          <span className={styles.dropText}>{dropLink.label}</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              )}
+              ))}
+            </nav>
+          </div>
+
+          {/* Left Section (in RTL): Actions */}
+          <div className={styles.actions}>
+            {/* Inline Search Bar */}
+            <div className={styles.searchInline}>
+              <Search size={18} className={styles.searchInlineIcon} />
+              <input
+                type="text"
+                placeholder="جستجوی بازی‌ها، محصولات..."
+                className={styles.searchInlineInput}
+              />
             </div>
+
+            <button className={styles.iconBtn} aria-label="اعلانات">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            </button>
 
             <a href="/cart" className={styles.iconBtn} aria-label="سبد خرید">
               <ShoppingCart size={20} />
               <span className={styles.cartBadge}>۲</span>
             </a>
 
+
             <div className={styles.desktopOnly}>
-              <Button size="sm" variant="primary" href="/login" icon={<User size={16} />}>
-                ورود
+              <Button size="sm" variant="primary" href="/signup">
+                ثبت نام
               </Button>
             </div>
-
           </div>
         </div>
       </header>
