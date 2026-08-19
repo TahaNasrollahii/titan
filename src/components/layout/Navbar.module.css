@@ -518,3 +518,34 @@
   from { opacity: 0; transform: translate(-50%, -8px); }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
+
+/* Colorful User Button with Text */
+.userBtnWithText {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 20px 8px 16px;
+  background: linear-gradient(135deg, #ff00cc, #3333ff, #00d4ff);
+  background-size: 200% 200%;
+  animation: gradient-pan 5s ease infinite;
+  color: white;
+  text-decoration: none;
+  border-radius: 100px;
+  font-size: var(--text-sm);
+  font-family: var(--font-persian);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.userBtnWithText:hover {
+  box-shadow: 0 8px 25px rgba(212, 0, 255, 0.5);
+  transform: translateY(-2px) scale(1.05);
+  color: white;
+}
+
+@keyframes gradient-pan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

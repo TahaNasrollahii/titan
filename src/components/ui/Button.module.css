@@ -248,18 +248,6 @@
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Liquid reflection */
-.glass::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 50%;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), transparent);
-  border-radius: 50% 50% 0 0;
-  pointer-events: none;
-}
 
 .glass:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.12);

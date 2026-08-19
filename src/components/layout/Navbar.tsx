@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Search, ShoppingCart, ChevronDown, Crosshair, Swords, Flame, Target, Trophy, Gamepad2, X } from 'lucide-react';
+import { Search, ShoppingCart, ChevronDown, Crosshair, Swords, Flame, Target, Trophy, Gamepad2, X, User } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import styles from './Navbar.module.css';
 
@@ -122,9 +122,10 @@ export default function Navbar() {
 
 
             <div className={styles.desktopOnly}>
-              <Button size="sm" variant="glass" href="/signup">
-                ثبت نام
-              </Button>
+              <a href="/signup" className={styles.userBtnWithText} aria-label="ثبت نام">
+                <User size={18} />
+                <span>حساب کاربری</span>
+              </a>
             </div>
           </div>
         </div>
