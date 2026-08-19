@@ -213,24 +213,7 @@ export default function StaticHero() {
                 ))}
               </div>
 
-              {/* Rotating glass boxes around the carousel */}
-              <div className={`${styles.orbitTrack} ${styles.track1}`}>
-                <div className={`${styles.glassBox} ${styles.box1}`}>
-                  <Gamepad2 size={32} className="text-accent" />
-                </div>
-              </div>
-              
-              <div className={`${styles.orbitTrack} ${styles.track2}`}>
-                <div className={`${styles.glassBox} ${styles.box2}`}>
-                  <Trophy size={32} className="text-violet" />
-                </div>
-              </div>
-              
-              <div className={`${styles.orbitTrack} ${styles.track3}`}>
-                <div className={`${styles.glassBox} ${styles.box3}`}>
-                  <span style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--titan-text-primary)' }}>10K+</span>
-                </div>
-              </div>
+
             </motion.div>
           </motion.div>
         </div>

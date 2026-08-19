@@ -44,6 +44,12 @@
   flex-shrink: 0;
 }
 
+.logoWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .logoIcon {
   font-size: var(--text-2xl);
   color: var(--titan-accent-blue);
@@ -190,50 +196,45 @@
   display: flex;
   align-items: center;
   gap: var(--space-4);
-}
-
-.navGroup {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-}
-
-.searchInline {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 100px;
-  padding: 8px 16px;
-  width: 260px;
-  transition: all var(--transition-fast);
-}
-
-.searchInline:focus-within {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-
-.searchInlineIcon {
-  color: var(--titan-text-tertiary);
-  flex-shrink: 0;
-}
-
-.searchInlineInput {
   flex: 1;
-  border: none;
-  background: transparent;
-  color: var(--titan-text-primary);
-  font-family: var(--font-persian);
-  font-size: var(--text-sm);
-  outline: none;
-  width: 100%;
+  justify-content: flex-end;
 }
 
-.searchInlineInput::placeholder {
-  color: var(--titan-text-tertiary);
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchBubbleBtn {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: var(--titan-text-primary);
+}
+
+.searchBubbleBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.searchBubbleBtn.active {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: rgba(0, 212, 255, 0.3);
+  color: var(--titan-accent-blue);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.2);
+}
+
+.searchDropdown {
+  position: absolute;
+  top: calc(100% + var(--space-3));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  z-index: var(--z-dropdown);
+  animation: fadeInCentered 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .iconBtn {
@@ -296,16 +297,7 @@
   justify-content: center;
 }
 
-/* Search Bar */
-.searchBar {
-  position: absolute;
-  top: calc(100% + var(--space-2));
-  left: 50%;
-  transform: translateX(-50%);
-  width: 320px;
-  z-index: var(--z-dropdown);
-  animation: fadeInCentered 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* Mobile Only */
 
 .searchInner {
   display: flex;

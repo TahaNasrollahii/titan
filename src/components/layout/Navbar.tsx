@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Search, ShoppingCart, ChevronDown, Crosshair, Swords, Flame, Target, Trophy, Gamepad2 } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Search, ShoppingCart, ChevronDown, Crosshair, Swords, Flame, Target, Trophy, Gamepad2, X } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import styles from './Navbar.module.css';
 
@@ -27,6 +27,8 @@ const navLinks = [
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,54 +38,77 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <>
       <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={`container ${styles.headerInner}`}>
-          {/* Right Section (in RTL): Logo & Nav */}
-          <div className={styles.navGroup}>
-            {/* Logo */}
+          {/* Right Section (in RTL): Logo */}
+          <div className={styles.logoWrapper}>
             <a href="/" className={styles.logo}>
               <span className={styles.logoIcon}>◆</span>
               <span className={`${styles.logoText} en-text`}>TITAN</span>
             </a>
-
-            {/* Desktop Navigation */}
-            <nav className={styles.desktopNav}>
-              {navLinks.map(link => (
-                <div key={link.href} className={styles.navItem}>
-                  <a href={link.href} className={styles.navLink}>
-                    {link.label}
-                    {link.dropdown && <ChevronDown size={14} className={styles.dropdownIcon} />}
-                  </a>
-                  
-                  {link.dropdown && (
-                    <div className={`${styles.dropdownMenu} ${link.isGrid ? styles.gridMenu : ''}`}>
-                      {link.dropdown.map(dropLink => (
-                        <a key={dropLink.href} href={dropLink.href} className={styles.dropdownItem}>
-                          {dropLink.icon && <span className={styles.dropIcon}>{dropLink.icon}</span>}
-                          <span className={styles.dropText}>{dropLink.label}</span>
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </nav>
           </div>
+
+          {/* Desktop Navigation */}
+          <nav className={`${styles.desktopNav} ${styles.centerNav}`}>
+            {navLinks.map(link => (
+              <div key={link.href} className={styles.navItem}>
+                <a href={link.href} className={styles.navLink}>
+                  {link.label}
+                  {link.dropdown && <ChevronDown size={14} className={styles.dropdownIcon} />}
+                </a>
+                
+                {link.dropdown && (
+                  <div className={`${styles.dropdownMenu} ${link.isGrid ? styles.gridMenu : ''}`}>
+                    {link.dropdown.map(dropLink => (
+                      <a key={dropLink.href} href={dropLink.href} className={styles.dropdownItem}>
+                        {dropLink.icon && <span className={styles.dropIcon}>{dropLink.icon}</span>}
+                        <span className={styles.dropText}>{dropLink.label}</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
 
           {/* Left Section (in RTL): Actions */}
           <div className={styles.actions}>
-            {/* Inline Search Bar */}
-            <div className={styles.searchInline}>
-              <Search size={18} className={styles.searchInlineIcon} />
-              <input
-                type="text"
-                placeholder="جستجوی بازی‌ها، محصولات..."
-                className={styles.searchInlineInput}
-              />
+            {/* Search Bubble Toggle */}
+            <div className={styles.searchContainer} ref={searchRef}>
+              <button 
+                className={`${styles.iconBtn} ${styles.searchBubbleBtn} ${isSearchOpen ? styles.active : ''}`}
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                aria-label="جستجو"
+              >
+                {isSearchOpen ? <X size={20} /> : <Search size={20} />}
+              </button>
+
+              {/* Dropdown Search Bar */}
+              {isSearchOpen && (
+                <div className={styles.searchDropdown}>
+                  <div className={styles.searchInner}>
+                    <Search size={18} className={styles.searchIcon} />
+                    <input
+                      type="text"
+                      placeholder="جستجوی بازی‌ها، محصولات..."
+                      className={styles.searchInput}
+                      autoFocus
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <button className={styles.iconBtn} aria-label="اعلانات">
