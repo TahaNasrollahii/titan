@@ -122,7 +122,7 @@ export default function Navbar() {
 
 
             <div className={styles.desktopOnly}>
-              <Button size="sm" variant="primary" href="/signup">
+              <Button size="sm" variant="glass" href="/signup">
                 ثبت نام
               </Button>
             </div>
