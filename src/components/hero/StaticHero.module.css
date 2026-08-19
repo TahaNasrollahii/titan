@@ -50,7 +50,7 @@
 .title {
   font-size: clamp(var(--text-4xl), 5vw, var(--text-7xl));
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.4;
   letter-spacing: -0.02em;
   color: var(--titan-text-primary);
   margin-bottom: var(--space-4);
