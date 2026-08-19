@@ -6,6 +6,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import GradientOrb from '@/components/effects/GradientOrb';
 import StaticHero from '@/components/hero/StaticHero';
+import DiscountsSection from '@/components/sections/DiscountsSection';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Button from '@/components/ui/Button';
 import TournamentCard from '@/components/cards/TournamentCard';
@@ -59,6 +60,9 @@ export default function HomePage() {
       <Navbar />
 
       <StaticHero />
+
+      {/* ==================== DISCOUNTS ==================== */}
+      <DiscountsSection />
 
       {/* ==================== LIVE BATTLES ==================== */}
       <motion.section 

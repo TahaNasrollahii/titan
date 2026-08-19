@@ -21,7 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div
           className={styles.image}
           style={{
-            backgroundImage: `url('/images/products/mock_product.png')`,
+            backgroundImage: `url('${product.image || '/images/products/mock_product.png'}')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}

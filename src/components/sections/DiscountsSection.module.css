@@ -1,0 +1,161 @@
+.wrapper {
+  position: relative;
+  padding-block: var(--space-12);
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+  position: relative;
+  z-index: 2;
+}
+
+.box {
+  display: flex;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 16, 122, 0.05));
+  border: 1px solid var(--titan-border-accent);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  gap: var(--space-8);
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-glow-blue);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+.box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images/noise.png'); /* If there's a noise texture, otherwise just gradient */
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sidebar {
+  flex: 0 0 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 1;
+}
+
+.badge {
+  background: var(--titan-accent-blue);
+  color: var(--titan-bg-deep);
+  padding: var(--space-1) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.title {
+  font-size: var(--text-4xl);
+  font-weight: 900;
+  color: var(--titan-text-primary);
+  margin-bottom: var(--space-2);
+  text-shadow: 0 0 20px var(--titan-glow-blue);
+}
+
+.subtitle {
+  color: var(--titan-text-secondary);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-6);
+}
+
+.percentCircle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--titan-gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: white;
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-glow-violet);
+}
+
+.navButtons {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.navBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.navBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.viewAll {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--titan-text-primary);
+  font-weight: 500;
+  font-size: var(--text-sm);
+}
+
+.carouselContainer {
+  flex: 1;
+  min-width: 0; /* Important for Swiper inside flex */
+  padding-bottom: var(--space-4);
+  z-index: 1;
+}
+
+.swiper {
+  width: 100%;
+  padding: 10px; /* To prevent shadow clipping */
+  margin: -10px; /* Counteract padding */
+}
+
+.swiperSlide {
+  width: 260px; /* Fixed width for each card so slidesPerView="auto" works */
+  height: auto; /* Let card determine height */
+}
+
+@media (max-width: 1023px) {
+  .box {
+    flex-direction: column;
+    padding: var(--space-6);
+  }
+  
+  .sidebar {
+    flex: none;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  .carouselContainer {
+    width: 100%;
+  }
+}
