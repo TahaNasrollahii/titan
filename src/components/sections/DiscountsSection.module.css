@@ -16,7 +16,7 @@
 .box {
   display: flex;
   background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 16, 122, 0.05));
-  border: 1px solid var(--titan-border-accent);
+  border: 1px solid transparent;
   border-radius: var(--radius-2xl);
   padding: var(--space-8);
   gap: var(--space-8);
@@ -26,6 +26,21 @@
   box-shadow: var(--shadow-glow-blue);
   backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
+}
+
+.box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #ff00cc, #3333ff, #00d4ff);
+  background-size: 200% 200%;
+  animation: gradient-pan-border 5s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .box::before {
@@ -158,4 +173,10 @@
   .carouselContainer {
     width: 100%;
   }
+}
+
+@keyframes gradient-pan-border {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
