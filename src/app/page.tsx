@@ -62,7 +62,24 @@ export default function HomePage() {
       <StaticHero />
 
       {/* ==================== DISCOUNTS ==================== */}
-      <DiscountsSection />
+      <motion.section 
+        className={styles.sectionWrapper}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={staggerContainer}
+      >
+        <div className="container">
+          <motion.div variants={fadeUpItem}>
+            <SectionHeader
+              eyebrow="پیشنهاد ویژه"
+              title="تخفیف‌های استثنایی"
+              subtitle="بهترین محصولات با کمترین قیمت"
+            />
+          </motion.div>
+        </div>
+        <DiscountsSection />
+      </motion.section>
 
       {/* ==================== LIVE BATTLES ==================== */}
       <motion.section 
