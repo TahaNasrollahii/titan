@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, Variants } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, Variants, useScroll, useTransform } from 'framer-motion';
 import { Clock, Flame, Tag } from 'lucide-react';
 import styles from './DiscountsSection.module.css';
 
@@ -50,24 +50,31 @@ const discountData = [
 
 export default function DiscountsSection() {
   const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1.4]);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
-
   return (
-    <section className={styles.wrapper}>
+    <section ref={containerRef} className={styles.wrapper}>
       {/* Background Rings */}
-      <div className={styles.ringsContainer}>
-        <div className={styles.ring} style={{ width: '1400px', height: '1400px', opacity: 0.015 }}></div>
-        <div className={styles.ring} style={{ width: '1000px', height: '1000px', opacity: 0.02 }}></div>
-        <div className={styles.ring} style={{ width: '600px', height: '600px', opacity: 0.04 }}></div>
-        <div className={styles.ring} style={{ width: '300px', height: '300px', opacity: 0.06 }}></div>
-      </div>
+      <motion.div className={styles.ringsContainer} style={{ scale, x: "-50%", y: "-50%" }}>
+        <div className={styles.ring} style={{ width: '1400px', height: '1400px', opacity: 0.05 }}></div>
+        <div className={styles.ring} style={{ width: '1000px', height: '1000px', opacity: 0.08 }}></div>
+        <div className={styles.ring} style={{ width: '600px', height: '600px', opacity: 0.12 }}></div>
+        <div className={styles.ring} style={{ width: '300px', height: '300px', opacity: 0.18 }}></div>
+      </motion.div>
       
-      <div className={styles.container}>
+      {mounted && (
+        <div className={styles.container}>
         <motion.div 
           className={styles.header}
           initial="hidden"
@@ -150,6 +157,7 @@ export default function DiscountsSection() {
           ))}
         </motion.div>
       </div>
+      )}
     </section>
   );
 }
