@@ -12,15 +12,15 @@
    ============================================= */
 :root {
   /* — Background — */
-  --titan-bg-deep: #05070D;
-  --titan-bg-primary: #080B14;
-  --titan-bg-secondary: #0B1020;
+  --titan-bg-deep: #070913;
+  --titan-bg-primary: #0a0d1c;
+  --titan-bg-secondary: #0f142a;
 
   /* — Surface — */
-  --titan-surface-1: #101522;
-  --titan-surface-2: #121827;
-  --titan-surface-3: #171D2C;
-  --titan-surface-4: #1E2538;
+  --titan-surface-1: #131936;
+  --titan-surface-2: #182042;
+  --titan-surface-3: #1e2850;
+  --titan-surface-4: #253161;
 
   /* — Primary Accent: Electric Cyan — */
   --titan-accent-blue: #00D4FF;
@@ -28,9 +28,9 @@
   --titan-accent-blue-bright: #40E0FF;
 
   /* — Secondary Accent: Magenta (Replacing Violet for new theme) — */
-  --titan-accent-violet: #FF107A;
-  --titan-accent-violet-dim: #D80066;
-  --titan-accent-violet-bright: #FF4DA6;
+  --titan-accent-violet: #ff3399;
+  --titan-accent-violet-dim: #cc0066;
+  --titan-accent-violet-bright: #ff66b2;
 
   /* — Optional Highlight: Magenta — */
   --titan-accent-magenta: #FF107A;

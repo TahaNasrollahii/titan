@@ -1,15 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { motion, Variants } from 'framer-motion';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Swiper as SwiperType } from 'swiper';
-import 'swiper/css';
-import { ChevronRight, ChevronLeft, Percent, ArrowLeft } from 'lucide-react';
-import ProductCard from '@/components/cards/ProductCard';
-import GradientOrb from '@/components/effects/GradientOrb';
-import { products } from '@/data/products';
+import { Clock, Flame, Tag } from 'lucide-react';
 import styles from './DiscountsSection.module.css';
 
 const fadeUpItem: Variants = {
@@ -17,80 +10,144 @@ const fadeUpItem: Variants = {
   show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } }
 };
 
+const formatPrice = (price: number) => price.toLocaleString('fa-IR');
+
+const discountData = [
+  {
+    id: 1,
+    title: 'کوین اپکس لجندز',
+    badge: 'فروش فوری',
+    originalPrice: 385000,
+    price: 299000,
+    discount: 22,
+    pillGradient: 'linear-gradient(135deg, #a855f7, #ec4899)',
+    offset: 0,
+    image: '/images/products/apex-coins.jpg'
+  },
+  {
+    id: 2,
+    title: 'پک اپراتور کال آو دیوتی',
+    badge: 'باندل ویژه',
+    originalPrice: 1018000,
+    price: 729000,
+    discount: 28,
+    pillGradient: 'linear-gradient(135deg, #3b82f6, #a855f7)',
+    offset: 20, // middle card is slightly lower in the design
+    image: '/images/products/cod-points.jpg'
+  },
+  {
+    id: 3,
+    title: '۲۸۰۰ وی‌باکس فورتنایت',
+    badge: 'پیشنهاد شبانه',
+    originalPrice: 999000,
+    price: 649000,
+    discount: 35,
+    pillGradient: 'linear-gradient(135deg, #06b6d4, #a855f7)',
+    offset: 0,
+    image: '/images/products/vbucks-1000.jpg'
+  }
+];
+
 export default function DiscountsSection() {
-  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  // Filter products that have a discount and sort by highest discount
-  const discountedProducts = products
-    .filter(p => p.discount)
-    .sort((a, b) => (b.discount || 0) - (a.discount || 0))
-    .slice(0, 8); // Take top 8
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  if (discountedProducts.length === 0) return null;
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (swiperInstance) {
-      if (direction === 'left') {
-        swiperInstance.slideNext();
-      } else {
-        swiperInstance.slidePrev();
-      }
-    }
-  };
+  if (!mounted) return null;
 
   return (
     <section className={styles.wrapper}>
-      <GradientOrb color="violet" size={600} top="-10%" left="-10%" opacity={0.15} />
-      <GradientOrb color="blue" size={500} bottom="-20%" right="20%" opacity={0.1} />
+      {/* Background Rings */}
+      <div className={styles.ringsContainer}>
+        <div className={styles.ring} style={{ width: '1400px', height: '1400px', opacity: 0.015 }}></div>
+        <div className={styles.ring} style={{ width: '1000px', height: '1000px', opacity: 0.02 }}></div>
+        <div className={styles.ring} style={{ width: '600px', height: '600px', opacity: 0.04 }}></div>
+        <div className={styles.ring} style={{ width: '300px', height: '300px', opacity: 0.06 }}></div>
+      </div>
       
       <div className={styles.container}>
         <motion.div 
-          className={styles.box}
+          className={styles.header}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeUpItem}
         >
-          {/* Sidebar / Title Area */}
-          <div className={styles.sidebar}>
-            <div className={styles.badge}>پیشنهاد ویژه</div>
-            <h2 className={styles.title}>شگفت‌انگیز</h2>
-            <p className={styles.subtitle}>تخفیف‌های بی‌نظیر امروز</p>
-            
-            <div className={styles.percentCircle}>
-              <Percent size={40} strokeWidth={3} />
+          <div className={styles.badgeRow}>
+            <div className={styles.topBadge}>
+              <Flame size={14} className={styles.flameIcon} />
+              <span>منطقه ۰۱ — دروازه تخفیف‌ها</span>
             </div>
-
-            <div className={styles.navButtons}>
-              <button className={styles.navBtn} onClick={() => scroll('right')} aria-label="بعدی">
-                <ChevronRight size={24} />
-              </button>
-              <button className={styles.navBtn} onClick={() => scroll('left')} aria-label="قبلی">
-                <ChevronLeft size={24} />
-              </button>
+          </div>
+          
+          <h2 className={styles.title}>
+            بهترین <span className={styles.titleGradient}>پیشنهادهای</span> این چرخه
+          </h2>
+          
+          <p className={styles.subtitle}>
+            هر ۲۴ ساعت دروازه باز می‌شود و قیمت‌ها سقوط می‌کنند. تا بسته شدن دروازه فرصت داری.
+          </p>
+          
+          <div className={styles.timerWrapper}>
+            <div className={styles.timer}>
+              <span className={styles.timerText} dir="ltr">۱۸ : ۴۲ : ۰۶</span>
+              <Clock size={16} className={styles.clockIcon} />
             </div>
-
-            <Link href="/store?filter=discount" className={styles.viewAll}>
-              مشاهده همه
-              <ArrowLeft size={16} />
-            </Link>
           </div>
+        </motion.div>
 
-          {/* Carousel Area */}
-          <div className={styles.carouselContainer}>
-            <Swiper
-              onSwiper={setSwiperInstance}
-              spaceBetween={16}
-              slidesPerView="auto"
-              className={styles.swiper}
-            >
-              {discountedProducts.map(product => (
-                <SwiperSlide key={product.id} className={styles.swiperSlide}>
-                  <ProductCard product={product} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
+        <motion.div 
+          className={styles.cardsGrid}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUpItem}
+        >
+          {discountData.map((item) => (
+            <div key={item.id} className={styles.card} style={{ transform: `translateY(${item.offset}px)` }}>
+              <div 
+                className={styles.cardImage}
+                style={{ backgroundImage: `url(${item.image})` }}
+              >
+                {/* Top Badge (moved inside image) */}
+                <div className={styles.cardBadge}>
+                  <Tag size={12} className={styles.cardBadgeIcon} />
+                  {item.badge}
+                </div>
+              </div>
+
+              {/* Discount Pill */}
+              <div 
+                className={styles.discountPill}
+                style={{ background: item.pillGradient, boxShadow: `0 0 20px ${item.pillGradient.split(',')[1].trim()}80` }}
+              >
+                {item.discount.toLocaleString('fa-IR')}٪
+              </div>
+
+              <div className={styles.cardContent}>
+                {/* Title */}
+                <h3 className={styles.cardTitle}>{item.title}</h3>
+
+                {/* Prices */}
+                <div className={styles.priceArea}>
+                  <div className={styles.originalPrice}>
+                    {formatPrice(item.originalPrice)}
+                  </div>
+                  <div className={styles.currentPrice}>
+                    {formatPrice(item.price)}
+                    <span className={styles.currency}>تومان</span>
+                  </div>
+                </div>
+
+                {/* Button */}
+                <button className={styles.addButton}>
+                  افزودن به سبد
+                </button>
+              </div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
