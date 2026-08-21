@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, Variants, useScroll, useTransform } from 'framer-motion';
 import { Clock, Flame, Tag } from 'lucide-react';
 import styles from './DiscountsSection.module.css';
@@ -49,7 +49,6 @@ const discountData = [
 ];
 
 export default function DiscountsSection() {
-  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -58,10 +57,6 @@ export default function DiscountsSection() {
   });
 
   const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1.4]);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <section ref={containerRef} className={styles.wrapper}>
@@ -73,8 +68,7 @@ export default function DiscountsSection() {
         <div className={styles.ring} style={{ width: '300px', height: '300px', opacity: 0.18 }}></div>
       </motion.div>
       
-      {mounted && (
-        <div className={styles.container}>
+      <div className={styles.container}>
         <motion.div 
           className={styles.header}
           initial="hidden"
@@ -129,6 +123,7 @@ export default function DiscountsSection() {
               <div 
                 className={styles.discountPill}
                 style={{ background: item.pillGradient, boxShadow: `0 0 20px ${item.pillGradient.split(',')[1].trim()}80` }}
+                suppressHydrationWarning
               >
                 {item.discount.toLocaleString('fa-IR')}٪
               </div>
@@ -139,10 +134,10 @@ export default function DiscountsSection() {
 
                 {/* Prices */}
                 <div className={styles.priceArea}>
-                  <div className={styles.originalPrice}>
+                  <div className={styles.originalPrice} suppressHydrationWarning>
                     {formatPrice(item.originalPrice)}
                   </div>
-                  <div className={styles.currentPrice}>
+                  <div className={styles.currentPrice} suppressHydrationWarning>
                     {formatPrice(item.price)}
                     <span className={styles.currency}>تومان</span>
                   </div>
@@ -157,7 +152,6 @@ export default function DiscountsSection() {
           ))}
         </motion.div>
       </div>
-      )}
     </section>
   );
 }
