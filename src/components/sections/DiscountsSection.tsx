@@ -62,10 +62,10 @@ export default function DiscountsSection() {
     <section ref={containerRef} className={styles.wrapper}>
       {/* Background Rings */}
       <motion.div className={styles.ringsContainer} style={{ scale, x: "-50%", y: "-50%" }}>
-        <div className={styles.ring} style={{ width: '1400px', height: '1400px', opacity: 0.05 }}></div>
         <div className={styles.ring} style={{ width: '1000px', height: '1000px', opacity: 0.08 }}></div>
-        <div className={styles.ring} style={{ width: '600px', height: '600px', opacity: 0.12 }}></div>
-        <div className={styles.ring} style={{ width: '300px', height: '300px', opacity: 0.18 }}></div>
+        <div className={styles.ring} style={{ width: '750px', height: '750px', opacity: 0.12 }}></div>
+        <div className={styles.ring} style={{ width: '500px', height: '500px', opacity: 0.18 }}></div>
+        <div className={styles.ring} style={{ width: '250px', height: '250px', opacity: 0.25 }}></div>
       </motion.div>
       
       <div className={styles.container}>

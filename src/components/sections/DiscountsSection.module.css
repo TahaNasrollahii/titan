@@ -9,7 +9,7 @@
 
 .ringsContainer {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
@@ -114,7 +114,7 @@
   font-weight: 700;
   letter-spacing: 4px;
   color: var(--titan-text-primary);
-  font-family: var(--font-mono);
+  font-family: var(--font-persian);
 }
 
 .clockIcon {
