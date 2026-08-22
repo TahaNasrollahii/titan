@@ -21,7 +21,6 @@ const discountData = [
     price: 299000,
     discount: 22,
     pillGradient: 'linear-gradient(135deg, #a855f7, #ec4899)',
-    offset: 0,
     image: '/images/products/apex-coins.jpg'
   },
   {
@@ -32,7 +31,6 @@ const discountData = [
     price: 729000,
     discount: 28,
     pillGradient: 'linear-gradient(135deg, #3b82f6, #a855f7)',
-    offset: 20, // middle card is slightly lower in the design
     image: '/images/products/cod-points.jpg'
   },
   {
@@ -43,13 +41,43 @@ const discountData = [
     price: 649000,
     discount: 35,
     pillGradient: 'linear-gradient(135deg, #06b6d4, #a855f7)',
-    offset: 0,
     image: '/images/products/vbucks-1000.jpg'
+  },
+  {
+    id: 4,
+    title: 'گیفت کارت ۵۰ دلاری استیم',
+    badge: 'محبوب',
+    originalPrice: 2800000,
+    price: 2450000,
+    discount: 12,
+    pillGradient: 'linear-gradient(135deg, #10b981, #3b82f6)',
+    image: '/images/products/steam-50.jpg'
+  },
+  {
+    id: 5,
+    title: '۱۱۵۰۰ پوینت فیفا ۲۴',
+    badge: 'تخفیف ویژه',
+    originalPrice: 4200000,
+    price: 3600000,
+    discount: 14,
+    pillGradient: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+    image: '/images/products/fc-points.jpg'
+  },
+  {
+    id: 6,
+    title: 'پرمیوم پس ولورانت',
+    badge: 'جدید',
+    originalPrice: 650000,
+    price: 490000,
+    discount: 24,
+    pillGradient: 'linear-gradient(135deg, #ef4444, #a855f7)',
+    image: '/images/products/vp-1000.jpg'
   }
 ];
 
 export default function DiscountsSection() {
   const containerRef = useRef<HTMLElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -100,56 +128,80 @@ export default function DiscountsSection() {
         </motion.div>
 
         <motion.div 
-          className={styles.cardsGrid}
+          className={styles.sliderWrapper}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeUpItem}
         >
-          {discountData.map((item) => (
-            <div key={item.id} className={styles.card} style={{ transform: `translateY(${item.offset}px)` }}>
-              <div 
-                className={styles.cardImage}
-                style={{ backgroundImage: `url(${item.image})` }}
-              >
-                {/* Top Badge (moved inside image) */}
-                <div className={styles.cardBadge}>
-                  <Tag size={12} className={styles.cardBadgeIcon} />
-                  {item.badge}
-                </div>
-              </div>
-
-              {/* Discount Pill */}
-              <div 
-                className={styles.discountPill}
-                style={{ background: item.pillGradient, boxShadow: `0 0 20px ${item.pillGradient.split(',')[1].trim()}80` }}
-                suppressHydrationWarning
-              >
-                {item.discount.toLocaleString('fa-IR')}٪
-              </div>
-
-              <div className={styles.cardContent}>
-                {/* Title */}
-                <h3 className={styles.cardTitle}>{item.title}</h3>
-
-                {/* Prices */}
-                <div className={styles.priceArea}>
-                  <div className={styles.originalPrice} suppressHydrationWarning>
-                    {formatPrice(item.originalPrice)}
+          <motion.div ref={carouselRef} className={styles.carouselContainer}>
+            <motion.div 
+              className={styles.innerCarousel}
+              drag="x"
+              dragConstraints={carouselRef}
+              whileTap={{ cursor: "grabbing" }}
+            >
+              {discountData.map((item, index) => (
+                <div key={item.id} className={styles.carouselItem}>
+                <motion.div 
+                  className={styles.card}
+                  animate={{ y: [0, -12, 0] }}
+                  transition={{ 
+                    duration: 5, 
+                    repeat: Infinity, 
+                    ease: "easeInOut",
+                    delay: index * 0.4
+                  }}
+                  whileHover={{ 
+                    scale: 1.03, 
+                    boxShadow: "0 30px 60px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.2), 0 0 40px rgba(168, 85, 247, 0.2)" 
+                  }}
+                >
+                  <div 
+                    className={styles.cardImage}
+                    style={{ backgroundImage: `url(${item.image})` }}
+                  >
+                    {/* Top Badge (moved inside image) */}
+                    <div className={styles.cardBadge}>
+                      <Tag size={12} className={styles.cardBadgeIcon} />
+                      {item.badge}
+                    </div>
                   </div>
-                  <div className={styles.currentPrice} suppressHydrationWarning>
-                    {formatPrice(item.price)}
-                    <span className={styles.currency}>تومان</span>
-                  </div>
-                </div>
 
-                {/* Button */}
-                <button className={styles.addButton}>
-                  افزودن به سبد
-                </button>
+                  {/* Discount Pill */}
+                  <div 
+                    className={styles.discountPill}
+                    style={{ background: item.pillGradient, boxShadow: `0 0 20px ${item.pillGradient.split(',')[1].trim()}80` }}
+                    suppressHydrationWarning
+                  >
+                    {item.discount.toLocaleString('fa-IR')}٪
+                  </div>
+
+                  <div className={styles.cardContent}>
+                    {/* Title */}
+                    <h3 className={styles.cardTitle}>{item.title}</h3>
+
+                    {/* Prices */}
+                    <div className={styles.priceArea}>
+                      <div className={styles.originalPrice} suppressHydrationWarning>
+                        {formatPrice(item.originalPrice)}
+                      </div>
+                      <div className={styles.currentPrice} suppressHydrationWarning>
+                        {formatPrice(item.price)}
+                        <span className={styles.currency}>تومان</span>
+                      </div>
+                    </div>
+
+                    {/* Button */}
+                    <button className={styles.addButton}>
+                      افزودن به سبد
+                    </button>
+                  </div>
+                </motion.div>
               </div>
-            </div>
-          ))}
+            ))}
+            </motion.div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
