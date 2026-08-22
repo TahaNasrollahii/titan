@@ -271,6 +271,7 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-lg);
   color: var(--titan-text-primary);
+  font-family: inherit;
   font-weight: 600;
   font-size: var(--text-base);
   transition: all var(--transition-fast);
